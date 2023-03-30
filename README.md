@@ -1,2 +1,2 @@
 # integral
-Evaluation of Gaussian Molecular Integrals
+Evaluation of Molecular Integrals
