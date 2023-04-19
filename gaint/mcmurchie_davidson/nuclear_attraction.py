@@ -52,11 +52,12 @@ if __name__ == '__main__':
     [5.033151319, 1.169596125, 0.38038896],
     [5.033151319, 1.169596125, 0.38038896]])
 
-    # H1s, H2s, O1s, O2s, O2px , O2py, O2p
+    # H1s, H2s, O1s, O2s, O2px , O2py, O2pz
     FCenter = [H2O[0], H2O[1], H2O[2], H2O[2], H2O[2], H2O[2], H2O[2]]
     CartAng = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
     [1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
     chi_17 = V3d(OrbCoeff[0,0], OrbCoeff[6,0], CartAng[0], CartAng[6], FCenter[0], FCenter[6],FCenter[0])
+    print(chi_17)
     print(np.isclose(chi_17,-0.0000854386))
 

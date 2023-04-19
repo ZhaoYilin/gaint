@@ -28,13 +28,13 @@ class PrimitiveGaussian(object):
         Initialize the instance.
 
     """
-    def __init__(self, coefficent, origin, shell, exponent):
+    def __init__(self, coefficient, origin, shell, exponent):
         """Initialize the instance.
 
         Parameters
         ----------
-        coefficent : float
-            Contraction coefficent of Primitive Gaussian function.
+        coefficient : float
+            Contraction coefficient of Primitive Gaussian function.
 
         origin : List[float, float, float]
             Coordinate of the nuclei.
@@ -45,7 +45,7 @@ class PrimitiveGaussian(object):
         exponent : float
             Primitive Gaussian exponent.
         """
-        self.coefficent = coefficent
+        self.coefficient = coefficient
         self.origin = origin
         self.shell = shell
         self.exponent  = exponent
@@ -69,7 +69,7 @@ class PrimitiveGaussian(object):
         Z = z-self.origin[2]
         rr = X**2+Y**2+Z**2
         return np.power(X,self.shell[0])*np.power(Y,self.shell[1])*\
-            np.power(Z,self.shell[2])*np.exp(-self.exp*rr)
+            np.power(Z,self.shell[2])*np.exp(-self.exponent*rr)
 
     @property
     def norm(self):
@@ -83,7 +83,7 @@ class PrimitiveGaussian(object):
         from scipy.special import factorial2 as fact2
         i,j,k = self.shell
         norm = np.sqrt(np.power(2,2*(i+j+k)+1.5)*
-                        np.power(self.exp,i+j+k+1.5)/
+                        np.power(self.exponent,i+j+k+1.5)/
                         fact2(2*i-1)/fact2(2*j-1)/
                         fact2(2*k-1)/np.power(np.pi,1.5))
         return norm

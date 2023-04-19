@@ -1,8 +1,9 @@
 import numpy as np
+from gaint.gauss import PrimitiveGaussian
 
-def S1d(a, b, i, j, A, B):
-    """The Obara-Saika scheme for one-dimensional overlap integrals over primitive
-    Gaussian orbitals.
+class Overlap(object):
+    """The Obara-Saika scheme for three-dimensional kinetic energy integral over
+    primitive Gaussian orbitals.
 
     Parameters
     ----------
@@ -27,80 +28,107 @@ def S1d(a, b, i, j, A, B):
     Returns
     -------
     result : float
-        The non-normalizecd overlap interals in one dimension.
+        The non-normalizecd kinetic interals in one dimension.
     """
-    # p the total exponent
-    p = a + b
-    # mu the reduced exponent
-    mu = (a*b)/(a+b)
-    # P the centre-of-charge coordinate
-    P = (a*A + b*B)/p
-    # XPA, XPB and XAB the realative coordinate
-    XPA = P-A
-    XPB = P-B
-    XAB = A-B
+    def __init__(self):
+        self.p = 0
+        self.mu = 0
+        self.P = ()
 
-    # boundary condition
-    if i == j == 0:
-        # Starting from the spherical Gaussians.
-        S00 = np.power(np.pi/p,0.5)*np.exp(-mu*XAB**2) 
-        result = S00
+    def __call__(self, pga, pgb):
+        """Evaluates nuclear attraction integral over two primitive gaussian orbitals.
+
+        Parameters
+        ----------
+        pga: PrimitiveGaussian
+            The first primitive gaussian orbital.
+
+        pgb: PrimitiveGaussian
+            The second primitive gaussian orbital.
+    
+        C: List[float,float,float]
+            Coordinate of nuclei.
+
+        Return
+        ------
+        result : float
+            Integral value.
+        """
+        result = 1
+        for r in range(3):
+            result *= self.S1d(r, pga, pgb)
         return result
 
-    elif i<0 or j<0:
-        result = 0.
-        return result
+    def S1d(self, r, pga, pgb):
+        a = pga.exponent
+        b = pgb.exponent
+        p = a + b
+        mu = (a*b)/(a+b)
 
-    # decrement index j
-    elif i == 0 and j>0:
-        result = XPB*S1d(a,b,i,j-1,A,B) +\
-                1./(2*p)*i*S1d(a,b,i-1,j-1,A,B) +\
-                1./(2*p)*(j-1)*S1d(a,b,i,j-2,A,B)
-        return result
+        A = np.array(pga.origin)
+        B = np.array(pgb.origin)
+        XAB = A-B
 
-    # decrement index i
-    else:
-        result = XPA*S1d(a,b,i-1,j,A,B) +\
-                1./(2*p)*(i-1)*S1d(a,b,i-2,j,A,B) +\
-                1./(2*p)*j*S1d(a,b,i-1,j-1,A,B)
-        return result
+        if pga.shell[r] > 0:
+            return self.recursive(r, *self.gaussian_factory(r, pga, pgb))
+        elif pgb.shell[r] > 0:
+            return self.recursive(r, *self.gaussian_factory(r, pgb, pga))
+        else:
+            # Starting from the spherical Gaussians.
+            S00 = np.power(np.pi/p,0.5)*np.exp(-mu*XAB[r]**2)
+            return S00
 
-def S3d(a, b, ikm, jln, A, B):
-    """The Obara-Saika scheme for three-dimensional overlap integrals over primitive
-    Gaussian orbitals.
 
-    Parameters
-    ----------
-    a : float 
-        Gaussian exponent facotr.
+    def recursive(self, r, pga, pgb, pga_1, pga_2, pgb_1):
+        term1 = term2 = term3 = 0
 
-    b : float 
-        Gaussian exponent facotr.
+        a = pga.exponent
+        b = pgb.exponent
+        p = a + b
+        mu = (a*b)/(a+b)
 
-    ikm : List[int]
-        Angular momentum quantum number.
+        A = np.array(pga.origin)
+        B = np.array(pgb.origin)
+        P = (a*A+b*B)/p
+        XPA = P-A
 
-    jln : List[int]
-        Angular momentum quantum number.
+        if XPA[r] != 0:
+            term1 = XPA[r] * self.S1d(r, pga_1, pgb)
+        if pga_1.shell[r] >= 0:
+            term2 = pga_1.shell[r] * (1 / (2 * p)) * self.S1d(r, pga_2, pgb)
+        if pgb.shell[r] >= 0:
+            term3 = pgb.shell[r] * (1 / (2 * p)) * self.S1d(r, pga_1, pgb_1)
+        return term1 + term2 + term3
 
-    A : List[float]
-        Coordinate at positon A.
+    def gaussian_factory(self, r, pga, pgb):
+        ca = pga.coefficient
+        cb = pgb.coefficient
 
-    B : List[float]
-        Coordinate at postion B.
+        a = pga.exponent
+        b = pgb.exponent
 
-    Returns
-    -------
-    result : float
-        The non-normalizecd overlap interals in three dimension.
-    """
-    i,k,m = ikm
-    j,l,n = jln
-    Sij = S1d(a,b,i,j,A[0],B[0]) # X
-    Skl = S1d(a,b,k,l,A[1],B[1]) # Y
-    Smn = S1d(a,b,m,n,A[2],B[2]) # Z
-    result = Sij*Skl*Smn
-    return result
+        A = pga.origin
+        B = pgb.origin
+
+        i,k,m = pga.shell
+        j,l,n = pgb.shell
+
+        if r == 0:
+            pga_i_1 = PrimitiveGaussian(ca, A, (i - 1, k, m), a)
+            pga_i_2 = PrimitiveGaussian(ca, A, (i - 2, k, m), a)
+            pgb_j_1 = PrimitiveGaussian(cb, B, (j - 1, l, n), b)
+            return pga, pgb, pga_i_1, pga_i_2, pgb_j_1
+        elif r == 1:
+            pga_k_1 = PrimitiveGaussian(ca, A, (i, k - 1, m), a)
+            pga_k_2 = PrimitiveGaussian(ca, A, (i, k - 2, m), a)
+            pgb_l_1 = PrimitiveGaussian(cb, B, (j, l - 1, n), b)
+            return pga, pgb, pga_k_1, pga_k_2, pgb_l_1
+        elif r == 2:
+            pga_m_1 = PrimitiveGaussian(ca, A, (i, k, m - 1), a)
+            pga_m_2 = PrimitiveGaussian(ca, A, (i, k, m - 2), a)
+            pgb_n_1 = PrimitiveGaussian(cb, B, (j, l, n - 1), b)
+            return pga, pgb, pga_m_1, pga_m_2, pgb_n_1
+
 
 if __name__ == '__main__':
     # Coordinate of H2O molecule
@@ -122,5 +150,8 @@ if __name__ == '__main__':
     CartAng = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
     [1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
-    chi_17 = S3d(OrbCoeff[0,0], OrbCoeff[6,0], CartAng[0], CartAng[6], FCenter[0], FCenter[6])
-    print(np.isclose(chi_17,-0.0000888019))
+    pg1 = PrimitiveGaussian(1.0,FCenter[0],CartAng[0],OrbCoeff[0,0])
+    pg2 = PrimitiveGaussian(1.0,FCenter[6],CartAng[6],OrbCoeff[6,0])
+    S = Overlap()
+    s17 = S(pg1,pg2)
+    print(np.isclose(s17,-0.0000888019))

@@ -1,5 +1,6 @@
 import numpy as np
 import scipy.special as sc
+from math import exp, gamma, sqrt
 
 def boys(n,t):
     """Boys function for the calculation of coulombic integrals.
@@ -27,3 +28,31 @@ def boys(n,t):
     if not isinstance(t, float):
         raise TypeError("Boys function varible t must be integer or float")
     return sc.hyp1f1(n+0.5,n+1.5,-t)/(2.0*n+1.0)
+
+def boys_recursion(N, x, f_N):
+    """Returns the answer to the boys function f_{v - 1}(x) using the
+    answer for the boys function f_{v}(x).
+
+    Parameters
+    ----------
+    v : {int, float}
+    x : {int, float}
+    f_v : float
+
+    Returns
+    -------
+    result : float
+        The boys function f_{N - 1}(x).
+    """
+    result =  (exp(-x) + 2 * x * f_N) / (2 * N - 1)
+    return result
+ 
+def gaussian_product_coordinate(a, r_1, b, r_2):
+    i = (a * r_1[0] + b * r_2[0]) / (a + b)
+    j = (a * r_1[1] + b * r_2[1]) / (a + b)
+    k = (a * r_1[2] + b * r_2[2]) / (a + b)
+    return i, j, k
+
+
+def coordinate_distance(r_1, r_2):
+    return sqrt((r_1[0] - r_2[0])**2 + (r_1[1] - r_2[1])**2 + (r_1[2] - r_2[2])**2)

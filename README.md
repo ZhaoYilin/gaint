@@ -1,7 +1,7 @@
 GaInt
 ==================================
 
-GaInt is abbreviation of *Ga*ussian&*Int*gral, it is a python package for molecular integrals over primitive Cartesian Gaussian orbitals. This is a particularly naive implementation in python: little attempt is made to conserve memory or CPU time. Nevertheless, it is useful for small test calculations, in particular for investigating ideas  quantum chemistry.
+GaInt is abbreviation of *Ga*ussian *Int*gral, it is a python package for molecular integrals over primitive Cartesian Gaussian orbitals. This is a particularly naive implementation in python: little attempt is made to conserve memory or CPU time. Nevertheless, it is useful for small test calculations, in particular for investigating ideas  quantum chemistry.
 
 
 

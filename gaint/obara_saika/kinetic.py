@@ -1,7 +1,10 @@
 import numpy as np
-from gaint.obara_saika.overlap import S1d
+from gaint.gauss import PrimitiveGaussian
+from gaint.obara_saika.overlap import Overlap
 
-def T1d(a, b, i, j, A, B):
+overlap = Overlap()
+
+class Kinetic(object):
     """The Obara-Saika scheme for three-dimensional kinetic energy integral over
     primitive Gaussian orbitals.
 
@@ -30,95 +33,121 @@ def T1d(a, b, i, j, A, B):
     result : float
         The non-normalizecd kinetic interals in one dimension.
     """
-    # p the total exponent
-    p = a + b
-    # mu the reduced exponent
-    mu = (a*b)/(a+b)
-    # P the centre-of-charge coordinate
-    P = (a*A + b*B)/p
-    # XPA, XPB and XAB the realative coordinate
-    XPA = P-A
-    XPB = P-B
-    XAB = A-B
+    def __init__(self):
+        self.p = 0
+        self.mu = 0
+        self.P = ()
 
-    # boundary condition
-    if i == j == 0:
-        # base case
-        S00 = np.power(np.pi/p,0.5)*np.exp(-mu*XAB**2)
-        T00 = (a-2*a**2*(XPA**2+1./(2*p)))*S00
-        result = T00
-        return result
+    def __call__(self, pga, pgb):
+        """Evaluates nuclear attraction integral over two primitive gaussian orbitals.
 
-    elif i<0 or j<0:
-        result = 0.
-        return result
+        Parameters
+        ----------
+        pga: PrimitiveGaussian
+            The first primitive gaussian orbital.
 
-    elif i == 0 and j>0:
-        # decrement index j
-        result = XPB*T1d(a,b,i,j-1,A,B) +\
-                1./(2*p)*i*T1d(a,b,i-1,j-1,A,B) +\
-                1./(2*p)*(j-1)*T1d(a,b,i,j-2,A,B) +\
-                a/p*2*b*S1d(a,b,i,j,A,B) -\
-                a/p*(j-1)*S1d(a,b,i,j-2,A,B) 
-        return result
+        pgb: PrimitiveGaussian
+            The second primitive gaussian orbital.
+    
+        C: List[float,float,float]
+            Coordinate of nuclei.
 
-    else:
-        # decrement index i
-        result = XPA*T1d(a,b,i-1,j,A,B) +\
-                1./(2*p)*(i-1)*T1d(a,b,i-2,j,A,B) +\
-                1./(2*p)*j*T1d(a,b,i-1,j-1,A,B) +\
-                b/p*2*a*S1d(a,b,i,j,A,B) -\
-                b/p*(i-1)*S1d(a,b,i-2,j,A,B) 
-        return result
+        Return
+        ------
+        result : float
+            Integral value.
+        """
+        Sij = overlap.S1d(0,pga,pgb)
+        Skl = overlap.S1d(1,pga,pgb)
+        Smn = overlap.S1d(2,pga,pgb)
 
-def T3d(a, b, ikm, jln, A, B):
-    """The Obara-Saika scheme for three-dimensional kinetic energy integral over
-    primitive Gaussian orbitals.
+        Tij = self.T1d(0,pga,pgb)
+        Tkl = self.T1d(1,pga,pgb)
+        Tmn = self.T1d(2,pga,pgb)
 
-    Parameters
-    ----------
-    a : float 
-        Gaussian exponent facotr.
+        Tab = Tij*Skl*Smn+Sij*Tkl*Smn+Sij*Skl*Tmn
+        return Tab
 
-    b : float 
-        Gaussian exponent facotr.
+    def T1d(self, r, pga, pgb):
+        a = pga.exponent
+        b = pgb.exponent
+        p = a + b
+        mu = (a*b)/(a+b)
 
-    ikm : List[int]
-        Angular momentum quantum number.
+        A = np.array(pga.origin)
+        B = np.array(pgb.origin)
+        P = (a*A+b*B)/p
+        XAB = A-B
+        XPA = P-A
 
-    jln : List[int]
-        Angular momentum quantum number.
+        if pga.shell[r] > 0:
+            return self.recursive(r, *self.gaussian_factory(r, pga, pgb))
+        elif pgb.shell[r] > 0:
+            return self.recursive(r, *self.gaussian_factory(r, pgb, pga))
+        else:
+            # Starting from the spherical Gaussians.
+            S00 = np.power(np.pi/p,0.5)*np.exp(-mu*XAB[r]**2)
+            T00 = (a-2*a**2*(XPA[r]**2+1./(2*p)))*S00
+            return T00
 
-    A : List[float]
-        Coordinate at positon A.
 
-    B : List[float]
-        Coordinate at postion B.
+    def recursive(self, r, pga, pgb, pga_1, pga_2, pgb_1):
+        term1 = term2 = term3 = term4 = term5 = 0
 
-    Returns
-    -------
-    result : float
-        The non-normalizecd overlap interals in three dimension.
-    """
-    i,k,m = ikm
-    j,l,n = jln
-    Tij = T1d(a,b,i,j,A[0],B[0])
-    Skl = S1d(a,b,k,l,A[1],B[1])
-    Smn = S1d(a,b,m,n,A[2],B[2])
-    Sij = S1d(a,b,i,j,A[0],B[0])
-    Tkl = T1d(a,b,k,l,A[1],B[1])
-    Smn = S1d(a,b,m,n,A[2],B[2])
-    Sij = S1d(a,b,i,j,A[0],B[0])
-    Skl = S1d(a,b,k,l,A[1],B[1])
-    Tmn = T1d(a,b,m,n,A[2],B[2])
-    Tab = Tij*Skl*Smn+Sij*Tkl*Smn+Sij*Skl*Tmn
-    result = Tab
-    return result
+        a = pga.exponent
+        b = pgb.exponent
+        p = a + b
+        mu = (a*b)/(a+b)
+
+        A = np.array(pga.origin)
+        B = np.array(pgb.origin)
+        P = (a*A+b*B)/p
+        XPA = P-A
+
+        if XPA[r] != 0:
+            term1 = XPA[r] * self.T1d(r, pga_1, pgb)
+        if pga_1.shell[r] >= 0:
+            term2 = pga_1.shell[r] * (1 / (2 * p)) * self.T1d(r, pga_2, pgb)
+        if pgb.shell[r] >= 0:
+            term3 = pgb.shell[r] * (1 / (2 * p)) * self.T1d(r, pga_1, pgb_1)
+        term4 =  (2*a*b) / p * overlap.S1d(r, pga, pgb)
+        if pga_1.shell[r] >= 0:
+            term5 = pgb.shell[r] * (b / p) * overlap.S1d(r, pga_2, pgb)
+        return term1 + term2 + term3 + term4 - term5
+
+    def gaussian_factory(self, r, pga, pgb):
+        ca = pga.coefficient
+        cb = pgb.coefficient
+
+        a = pga.exponent
+        b = pgb.exponent
+
+        A = pga.origin
+        B = pgb.origin
+
+        i,k,m = pga.shell
+        j,l,n = pgb.shell
+
+        if r == 0:
+            pga_i_1 = PrimitiveGaussian(ca, A, (i - 1, k, m), a)
+            pga_i_2 = PrimitiveGaussian(ca, A, (i - 2, k, m), a)
+            pgb_j_1 = PrimitiveGaussian(cb, B, (j - 1, l, n), b)
+            return pga, pgb, pga_i_1, pga_i_2, pgb_j_1
+        elif r == 1:
+            pga_k_1 = PrimitiveGaussian(ca, A, (i, k - 1, m), a)
+            pga_k_2 = PrimitiveGaussian(ca, A, (i, k - 2, m), a)
+            pgb_l_1 = PrimitiveGaussian(cb, B, (j, l - 1, n), b)
+            return pga, pgb, pga_k_1, pga_k_2, pgb_l_1
+        elif r == 2:
+            pga_m_1 = PrimitiveGaussian(ca, A, (i, k, m - 1), a)
+            pga_m_2 = PrimitiveGaussian(ca, A, (i, k, m - 2), a)
+            pgb_n_1 = PrimitiveGaussian(cb, B, (j, l, n - 1), b)
+            return pga, pgb, pga_m_1, pga_m_2, pgb_n_1
 
 
 if __name__ == '__main__':
     # Coordinate of H2O molecule
-    R = [[0., 1.43233673, -0.96104039],
+    H2O = [[0., 1.43233673, -0.96104039],
     [0., -1.43233673, -0.96104039],
     [0., 0., 0.24026010]]
 
@@ -132,10 +161,12 @@ if __name__ == '__main__':
     [5.033151319, 1.169596125, 0.38038896]])
 
     # H1s, H2s, O1s, O2s, O2px , O2py, O2p
-    FCenter = [R[0], R[1], R[2], R[2], R[2], R[2], R[2]]
+    FCenter = [H2O[0], H2O[1], H2O[2], H2O[2], H2O[2], H2O[2], H2O[2]]
     CartAng = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
     [1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
-    chi_17 = T3d(OrbCoeff[0,0], OrbCoeff[6,0], CartAng[0], CartAng[6], FCenter[0], FCenter[6])
-    print(np.isclose(chi_17,0.00167343))
-
+    pg1 = PrimitiveGaussian(1.0,FCenter[0],CartAng[0],OrbCoeff[0,0])
+    pg2 = PrimitiveGaussian(1.0,FCenter[6],CartAng[6],OrbCoeff[6,0])
+    T = Kinetic()
+    t17 = T(pg1,pg2)
+    print(np.isclose(t17,0.00167343))

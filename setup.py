@@ -6,7 +6,7 @@ import platform
 
 setup(name='gaint',
     version='0.1',
-    description='Evaluation of Molecular Integrals Over Primitive Gaussian Orbitals.',
+    description='A Package for Evaluation of  Molecular Integrals Over Primitive Gaussian Orbitals.',
     url='https://zhaoyilin.github.io/gaint/',
     author='Yilin Zhao',
     author_email='zhaoyilin1991@gmail.com',
