@@ -1,6 +1,6 @@
 # GaInt
 
-GaInt is abbreviation of *Ga*ussian *Int*gral, it is a python package for molecular integrals over Cartesian Gaussian orbitals. This is a particularly naive implementation in python: little attempt is made to conserve memory or CPU time. Nevertheless, it is useful for small test calculations, in particular for investigating ideas quantum chemistry.
+GaInt is abbreviation of *Ga*ussian *Int*gral, it is a python package for molecular integrals over Primitive Cartesian Gaussian orbitals. This is a particularly naive implementation in python: little attempt is made to conserve memory or CPU time. Nevertheless, it is useful for small test calculations, in particular for investigating ideas quantum chemistry.
 
 
 
@@ -30,22 +30,21 @@ The core mechanical quantities of a chemistry system is the Hamiltonian. Hamilto
 
 $$
 \begin{aligned}
-\hat{H}= &-\sum^N_{i=1}\frac{\hbar^2}{2m_i}{\nabla}_i^2
+\hat{H}_{elec}= &-\sum^N_{i=1}\frac{\hbar^2}{2m_i}{\nabla}_i^2
 -\sum^N_{i=1}\sum^M_{\alpha=1} \frac{Z_a e^2}{\textbf{r}_{ia}}\\
 &+\sum^N_{i=1}\sum^N_{j>i} \frac{e^2}{\textbf{r}_{ij}}
-+\sum^N_{a=1}\sum^M_{b=1} \frac{Z_a Z_b e^2}{\textbf{R}_{ab}}
 \end{aligned}
 $$
 
 Where $m_i$ is the mass of electron. $M_\alpha$ and $Z_\alpha$ refer to the mass and charge of atomic nucleus. $R_{\alpha\beta}$, $r_{i\alpha}$ and $r_{ij}$ is the distance between two nucleus, atomic nuclei and electron and two electrons respectively. The explicit representation of Laplacian operator is:
+
 $$
 \boldsymbol{\nabla}^2 = \frac{\partial^2}{\partial x^2} +\frac{\partial^2}{\partial y^2} 
 +\frac{\partial^2}{\partial z^2}
 $$
 
-|  Name  | Operators |Access Integral | Shape |
+|  Name  | Operators |Symbol | Shape |
 |:--------:|:--------:|:------:|:------:|
-|Nuclear Repuslion| $\sum^N_{a=1}\sum^M_{b=1} \frac{Z_a Z_b e^2}{\textbf{R}_{ab}}$  | Nuc   | 1   | 
 |Overlap| 1 |  S   | (nbasis,nbasis)   | 
 |Kinetic| $-\sum^N_{i=1}\frac{\hbar^2}{2m_i}{\nabla}_i^2$ |  T   | (nbasis,nbasis) | 
 |Nuclear Attraction| $-\sum^N_{i=1}\sum^M_{\alpha=1} \frac{Z_a e^2}{\textbf{r}_{ia}}$ |  V   | (nbasis,nbasis) | 
