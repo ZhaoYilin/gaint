@@ -1,14 +1,11 @@
-GaInt
-==================================
+# GaInt
 
-GaInt is abbreviation of *Ga*ussian *Int*gral, it is a python package for molecular integrals over primitive Cartesian Gaussian orbitals. This is a particularly naive implementation in python: little attempt is made to conserve memory or CPU time. Nevertheless, it is useful for small test calculations, in particular for investigating ideas  quantum chemistry.
-
+GaInt is abbreviation of *Ga*ussian *Int*gral, it is a python package for molecular integrals over Cartesian Gaussian orbitals. This is a particularly naive implementation in python: little attempt is made to conserve memory or CPU time. Nevertheless, it is useful for small test calculations, in particular for investigating ideas quantum chemistry.
 
 
 
-Installation
-------------
 
+## Installation
 * Prerequisties:
 
   - Python 3.5 or above
@@ -24,3 +21,108 @@ Installation
 * Using pip to install python package on GitHub
 
       pip install git+https://github.com/ZhaoYilin/gaint
+
+
+## Documentation
+
+### Hamiltonian
+The core mechanical quantities of a chemistry system is the Hamiltonian. Hamiltonian operator should include the kinetic energy and potential energy terms of all atomic nuclei and all electrons. It is generally assumed that the molecule is in a vacuum and adiabatic state in isolation. At this time, the interaction potential energy between the nucleus and the electron in the molecule is only related to distance from each other and time independent. Its expression is:
+
+$$
+\begin{aligned}
+\hat{H}= &-\sum^N_{i=1}\frac{\hbar^2}{2m_i}{\nabla}_i^2
+-\sum^N_{i=1}\sum^M_{\alpha=1} \frac{Z_a e^2}{\textbf{r}_{ia}}\\
+&+\sum^N_{i=1}\sum^N_{j>i} \frac{e^2}{\textbf{r}_{ij}}
++\sum^N_{a=1}\sum^M_{b=1} \frac{Z_a Z_b e^2}{\textbf{R}_{ab}}
+\end{aligned}
+$$
+
+Where $m_i$ is the mass of electron. $M_\alpha$ and $Z_\alpha$ refer to the mass and charge of atomic nucleus. $R_{\alpha\beta}$, $r_{i\alpha}$ and $r_{ij}$ is the distance between two nucleus, atomic nuclei and electron and two electrons respectively. The explicit representation of Laplacian operator is:
+$$
+\boldsymbol{\nabla}^2 = \frac{\partial^2}{\partial x^2} +\frac{\partial^2}{\partial y^2} 
++\frac{\partial^2}{\partial z^2}
+$$
+
+|  Name  | Operators |Access Integral | Shape |
+|:--------:|:--------:|:------:|:------:|
+|Nuclear Repuslion| $\sum^N_{a=1}\sum^M_{b=1} \frac{Z_a Z_b e^2}{\textbf{R}_{ab}}$  | Nuc   | 1   | 
+|Overlap| 1 |  S   | (nbasis,nbasis)   | 
+|Kinetic| $-\sum^N_{i=1}\frac{\hbar^2}{2m_i}{\nabla}_i^2$ |  T   | (nbasis,nbasis) | 
+|Nuclear Attraction| $-\sum^N_{i=1}\sum^M_{\alpha=1} \frac{Z_a e^2}{\textbf{r}_{ia}}$ |  V   | (nbasis,nbasis) | 
+|Electron Repulsion| $\sum^N_{i=1}\sum^N_{j>i} \frac{e^2}{\textbf{r}_{ij}}$   |Eri   | (nbasis,nbasis,nbasis,nbasis) |
+
+
+### Primitive Gaussian Type Orbital
+
+Most quantum chemistry package supports Contracted Gaussian type orbtial(CGTO), it is an atomic orbital forming in linear combinations of primitive Gaussians type orbital(PGTO). Here in this note, only the integral over primitive Gaussian type orbital is to be considered which are defiend by an angular part which is homogeneous polynomial in the compoents x, y, and z of the position vector $\mathbf{r}$. That is,
+
+$$
+G_{ijk}(r_A,a) = x^i_A y^j_A z^k_A e^{-a r^2_A}
+$$
+
+- a>0 is the orbital exponent.  
+- $r_A = r − A$ is the electronic coordinate.
+- i ≥ 0, j ≥ 0, k ≥ 0 is the quantum number.
+- Total angular-momentum quantum number l = i + j + k ≥ 0
+
+
+```python 
+from gaint.gauss import PrimitiveGaussian
+# Coordinate of H2O molecule
+H2O = [[0., 1.43233673, -0.96104039],
+[0., -1.43233673, -0.96104039],
+[0., 0., 0.24026010]]
+
+# Primitive contraction coefficients
+PrimCoeff = np.array([[0.1543289673, 0.5353281423, 0.4446345422],
+[0.1543289673, 0.5353281423, 0.4446345422],
+[0.1543289673, 0.5353281423, 0.4446345422],
+[-0.09996722919, 0.3995128261, 0.7001154689],
+[0.155916275, 0.6076837186, 0.3919573931],
+[0.155916275, 0.6076837186, 0.3919573931],
+[0.155916275, 0.6076837186, 0.3919573931]])
+
+# Orbital exponents
+OrbCoeff = np.array([[3.425250914, 0.6239137298, 0.168855404],
+[3.425250914, 0.6239137298, 0.168855404],
+[130.7093214, 23.80886605, 6.443608313],
+[5.033151319, 1.169596125, 0.38038896],
+[5.033151319, 1.169596125, 0.38038896],
+[5.033151319, 1.169596125, 0.38038896],
+[5.033151319, 1.169596125, 0.38038896]])
+
+# H1s, H2s, O1s, O2s, O2px , O2py, O2p
+FCenter = [H2O[0], H2O[1], H2O[2], H2O[2], H2O[2], H2O[2], H2O[2]]
+CartAng = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
+[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+
+pga = PrimitiveGaussian(1.0,FCenter[0],CartAng[0],OrbCoeff[0,0])
+pgb = PrimitiveGaussian(1.0,FCenter[6],CartAng[6],OrbCoeff[6,0])
+
+```
+
+### Use Integral
+
+
+
+```python
+# The overlap integral between two primitive Gaussian type orbital
+from gaint.obara_saikai.overlap import OverlapIntegral
+S_integral = OverlapIntegral()
+print(S_integral(pga,pgb))
+
+from gaint.obara_saikai.kinetic import Kinetic
+T = Kinetic()
+t17 = T(pg1,pg2)
+print(np.isclose(t17,0.00167343))
+
+from gaint.obara_saikai.nuclear_attraction import NuclearAttraction
+V = NuclearAttraction()
+v17 = V(pg1,pg2,FCenter[0])
+print(np.isclose(v17,-0.0000854386))
+
+from gaint.obara_saikai.electron_repulsion import ElectronRepulsion
+Eri = ElectronRepulsion()
+eri1717 = Eri(g1,g2,g1,g2)
+print(np.isclose(eri1717,1.9060888184873294e-08))
+```
