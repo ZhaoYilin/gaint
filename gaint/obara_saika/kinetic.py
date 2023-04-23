@@ -1,45 +1,32 @@
 import numpy as np
-from gaint.gauss import PrimitiveGaussian
-from gaint.obara_saika.overlap import Overlap
 
-overlap = Overlap()
+from gaint.gauss import PrimitiveGaussian
 
 class Kinetic(object):
-    """The Obara-Saika scheme for three-dimensional kinetic energy integral over
-    primitive Gaussian orbitals.
+    """The Obara-Saika scheme kinetic energy integral over primitive Gaussian orbitals.
 
-    Parameters
+    Attributes
     ----------
-    a : float 
-        Gaussian exponent facotr.
+    p : float 
+        The total exponent.
 
-    b : float 
-        Gaussian exponent facotr.
+    mu : float
+        The reduced exponent.
 
-    i : int
-        Angular momentum quantum number.
-
-    j : int
-        Angular momentum quantum number.
-
-    A : float
-        Coordinate in on direction.
-
-    B : float
-        Coordinate in on direction.
-
-    Returns
-    -------
-    result : float
-        The non-normalizecd kinetic interals in one dimension.
+    P : List[float,float,float] 
+        The centre of charge coordinate.
     """
     def __init__(self):
+        """Initialize the instance.
+        """
+        from gaint.obara_saika.overlap import Overlap
         self.p = 0
         self.mu = 0
         self.P = ()
+        self.overlap = Overlap()
 
     def __call__(self, pga, pgb):
-        """Evaluates nuclear attraction integral over two primitive gaussian orbitals.
+        """Evaluates kinetic energy integral over two primitive gaussian orbitals.
 
         Parameters
         ----------
@@ -48,18 +35,15 @@ class Kinetic(object):
 
         pgb: PrimitiveGaussian
             The second primitive gaussian orbital.
-    
-        C: List[float,float,float]
-            Coordinate of nuclei.
 
         Return
         ------
         result : float
             Integral value.
         """
-        Sij = overlap.S1d(0,pga,pgb)
-        Skl = overlap.S1d(1,pga,pgb)
-        Smn = overlap.S1d(2,pga,pgb)
+        Sij = self.overlap.S1d(0,pga,pgb)
+        Skl = self.overlap.S1d(1,pga,pgb)
+        Smn = self.overlap.S1d(2,pga,pgb)
 
         Tij = self.T1d(0,pga,pgb)
         Tkl = self.T1d(1,pga,pgb)
@@ -69,6 +53,19 @@ class Kinetic(object):
         return Tab
 
     def T1d(self, r, pga, pgb):
+        """Evaluates one dimensional kinetic energy integral over two primitive gaussian orbitals.
+
+        Parameters
+        ----------
+        r: int
+            The spatial index.
+
+        pga: PrimitiveGaussian
+            The first primitive gaussian orbital.
+
+        pgb: PrimitiveGaussian
+            The second primitive gaussian orbital.
+        """
         a = pga.exponent
         b = pgb.exponent
         p = a + b
@@ -92,6 +89,33 @@ class Kinetic(object):
 
 
     def recursive(self, r, pga, pgb, pga_1, pga_2, pgb_1):
+        """Run the recurrence.
+
+        Parameters
+        ----------
+        r : int
+            Cartesian index 0, 1, 2. 
+
+        pga : PrimitiveGaussian
+            The primitive gaussian orbital.
+
+        pgb : PrimitiveGaussian
+            The primitive gaussian orbital.
+
+        pga_1 : PrimitiveGaussian
+            The primitive gaussian orbital.
+
+        pga_2 : PrimitiveGaussian
+            The primitive gaussian orbital.
+
+        pgb_1 : PrimitiveGaussian
+            The primitive gaussian orbital.
+
+        Return
+        ------
+        result : float
+            Integral value.
+        """
         term1 = term2 = term3 = term4 = term5 = 0
 
         a = pga.exponent
@@ -110,12 +134,30 @@ class Kinetic(object):
             term2 = pga_1.shell[r] * (1 / (2 * p)) * self.T1d(r, pga_2, pgb)
         if pgb.shell[r] >= 0:
             term3 = pgb.shell[r] * (1 / (2 * p)) * self.T1d(r, pga_1, pgb_1)
-        term4 =  (2*a*b) / p * overlap.S1d(r, pga, pgb)
+        term4 =  (2*a*b) / p * self.overlap.S1d(r, pga, pgb)
         if pga_1.shell[r] >= 0:
-            term5 = pgb.shell[r] * (b / p) * overlap.S1d(r, pga_2, pgb)
+            term5 = pgb.shell[r] * (b / p) * self.overlap.S1d(r, pga_2, pgb)
         return term1 + term2 + term3 + term4 - term5
 
     def gaussian_factory(self, r, pga, pgb):
+        """Generate all gaussian orbitals in the Obara-Saikai recurrence equation.
+
+        Parameters
+        ----------
+        r : int
+            Cartesian index 0, 1, 2. 
+
+        pga : PrimitiveGaussian
+            The primitive gaussian orbital.
+
+        pgb : PrimitiveGaussian
+            The primitive gaussian orbital.
+
+        Return
+        ------
+        result : Tuple(pg, pg, pg, pg, pg)
+            Tuple of 5 PrimitiveGaussian orbital instance. 
+        """
         ca = pga.coefficient
         cb = pgb.coefficient
 

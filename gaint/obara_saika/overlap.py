@@ -1,42 +1,30 @@
 import numpy as np
+
 from gaint.gauss import PrimitiveGaussian
 
 class Overlap(object):
-    """The Obara-Saika scheme for three-dimensional kinetic energy integral over
-    primitive Gaussian orbitals.
+    """The Obara-Saika scheme for overlap integral over primitive Gaussian orbitals.
 
-    Parameters
+    Attributes
     ----------
-    a : float 
-        Gaussian exponent facotr.
+    p : float 
+        The total exponent.
 
-    b : float 
-        Gaussian exponent facotr.
+    mu : float
+        The reduced exponent.
 
-    i : int
-        Angular momentum quantum number.
-
-    j : int
-        Angular momentum quantum number.
-
-    A : float
-        Coordinate in on direction.
-
-    B : float
-        Coordinate in on direction.
-
-    Returns
-    -------
-    result : float
-        The non-normalizecd kinetic interals in one dimension.
+    P : List[float,float,float] 
+        The centre of charge coordinate.
     """
     def __init__(self):
+        """Initialize the instance.
+        """
         self.p = 0
         self.mu = 0
         self.P = ()
 
     def __call__(self, pga, pgb):
-        """Evaluates nuclear attraction integral over two primitive gaussian orbitals.
+        """Evaluates overlap integral over two primitive gaussian orbitals.
 
         Parameters
         ----------
@@ -46,9 +34,6 @@ class Overlap(object):
         pgb: PrimitiveGaussian
             The second primitive gaussian orbital.
     
-        C: List[float,float,float]
-            Coordinate of nuclei.
-
         Return
         ------
         result : float
@@ -60,6 +45,19 @@ class Overlap(object):
         return result
 
     def S1d(self, r, pga, pgb):
+        """Evaluates one dimensional overlap integral over two primitive gaussian orbitals.
+
+        Parameters
+        ----------
+        r : int
+            Cartesian index 0, 1, 2. 
+
+        pga: PrimitiveGaussian
+            The first primitive gaussian orbital.
+
+        pgb: PrimitiveGaussian
+            The second primitive gaussian orbital.
+        """
         a = pga.exponent
         b = pgb.exponent
         p = a + b
@@ -80,6 +78,33 @@ class Overlap(object):
 
 
     def recursive(self, r, pga, pgb, pga_1, pga_2, pgb_1):
+        """Run the recurrence.
+
+        Parameters
+        ----------
+        r : int
+            Cartesian index 0, 1, 2. 
+
+        pga : PrimitiveGaussian
+            The primitive gaussian orbital.
+
+        pgb : PrimitiveGaussian
+            The primitive gaussian orbital.
+
+        pga_1 : PrimitiveGaussian
+            The primitive gaussian orbital.
+
+        pga_2 : PrimitiveGaussian
+            The primitive gaussian orbital.
+
+        pgb_1 : PrimitiveGaussian
+            The primitive gaussian orbital.
+
+        Return
+        ------
+        result : float
+            Integral value.
+        """
         term1 = term2 = term3 = 0
 
         a = pga.exponent
@@ -101,6 +126,24 @@ class Overlap(object):
         return term1 + term2 + term3
 
     def gaussian_factory(self, r, pga, pgb):
+        """Generate all gaussian orbitals in the Obara-Saikai recurrence equation.
+
+        Parameters
+        ----------
+        r : int
+            Cartesian index 0, 1, 2. 
+
+        pga : PrimitiveGaussian
+            The primitive gaussian orbital.
+
+        pgb : PrimitiveGaussian
+            The primitive gaussian orbital.
+
+        Return
+        ------
+        result : Tuple(pg, pg, pg, pg, pg)
+            Tuple of 5 PrimitiveGaussian orbital instance. 
+        """
         ca = pga.coefficient
         cb = pgb.coefficient
 

@@ -134,7 +134,7 @@ class NuclearAttraction(object):
             return self.boys_dict[N]
 
     def recursive(self, r, N, pga, pgb, pga_1, pga_2, pgb_1):
-        """Evaluates nuclear attraction integral over two primitive gaussian orbitals.
+        """Run the recurrence.
 
         Parameters
         ----------
@@ -192,7 +192,7 @@ class NuclearAttraction(object):
         return result
 
     def gaussian_factory(self, r, pga, pgb):
-        """Evaluates nuclear attraction integral over two primitive gaussian orbitals.
+        """Generate all gaussian orbitals in the Obara-Saikai recurrence equation.
 
         Parameters
         ----------
@@ -210,8 +210,8 @@ class NuclearAttraction(object):
 
         Return
         ------
-        result : Tuple(pg,pg,pg,pg)
-            Tuple of 4 PrimitiveGaussian orbital instance. 
+        result : Tuple(pg, pg, pg, pg, pg)
+            Tuple of 5 PrimitiveGaussian orbital instance. 
         """
         ca = pga.coefficient
         cb = pgb.coefficient

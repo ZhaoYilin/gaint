@@ -152,7 +152,7 @@ class ElectronRepulsion:
             return self.boys_dict[N]
 
     def recursive(self, r, N, pga, pgb, pgc, pgd, pga_1, pga_2, pgb_1, pgc_1, pgd_1):
-        """Evaluates nuclear attraction integral over two primitive gaussian orbitals.
+        """Run the recurrence.
 
         Parameters
         ----------
@@ -188,7 +188,6 @@ class ElectronRepulsion:
         p = a + b
         q = c + d
         alpha = (p*q)/(p+q)
-        #alpha = self.alpha
         
         A = np.array(pga.origin)
         B = np.array(pgb.origin)
@@ -218,7 +217,7 @@ class ElectronRepulsion:
         return term1 - term2 + term3 - term4 + term5 - term6 + term7 + term8
 
     def gaussian_factory(self, r, pga, pgb, pgc, pgd):
-        """Evaluates nuclear attraction integral over two primitive gaussian orbitals.
+        """Generate all gaussian orbitals in the Obara-Saikai recurrence equation.
 
         Parameters
         ----------
@@ -236,8 +235,8 @@ class ElectronRepulsion:
 
         Return
         ------
-        result : Tuple(pg,pg,pg,pg)
-            Tuple of 4 PrimitiveGaussian orbital instance. 
+        result : Tuple(pg, pg, pg, pg, pg, pg, pg, pg)
+            Tuple of 8 PrimitiveGaussian orbital instance. 
         """
         ca = pga.coefficient
         cb = pgb.coefficient
@@ -306,4 +305,4 @@ if __name__ == '__main__':
     g2 = PrimitiveGaussian(1.0,FCenter[6],CartAng[6],OrbCoeff[6,0])
     Eri = ElectronRepulsion()
     eri1717 = Eri(g1,g2,g1,g2)
-    print(eri1717)
+    print(np.allclose(eri1717,1.9060888184873294e-08))

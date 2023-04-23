@@ -46,13 +46,3 @@ def boys_recursion(N, x, f_N):
     """
     result =  (exp(-x) + 2 * x * f_N) / (2 * N - 1)
     return result
- 
-def gaussian_product_coordinate(a, r_1, b, r_2):
-    i = (a * r_1[0] + b * r_2[0]) / (a + b)
-    j = (a * r_1[1] + b * r_2[1]) / (a + b)
-    k = (a * r_1[2] + b * r_2[2]) / (a + b)
-    return i, j, k
-
-
-def coordinate_distance(r_1, r_2):
-    return sqrt((r_1[0] - r_2[0])**2 + (r_1[1] - r_2[1])**2 + (r_1[2] - r_2[2])**2)
