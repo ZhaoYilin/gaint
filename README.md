@@ -1,6 +1,6 @@
 # GaInt
 
-GaInt is abbreviation of *Ga*ussian *Int*gral, it is a python package for molecular integrals over Primitive Cartesian Gaussian orbitals. This is a particularly naive implementation in python: little attempt is made to conserve memory or CPU time. Nevertheless, it is useful for small test calculations, in particular for investigating ideas quantum chemistry.
+GaInt is abbreviation of *Ga*ussian *Int*gral, it is a python package for the non-normalizecd molecular integrals over Primitive Cartesian Gaussian orbitals. This is a particularly naive implementation in python: little attempt is made to conserve memory or CPU time. Nevertheless, it is useful for small test calculations, in particular for investigating ideas quantum chemistry.
 
 
 
@@ -46,9 +46,9 @@ $$
 |  Name  | Operators |Symbol | Shape |
 |:--------:|:--------:|:------:|:------:|
 |Overlap| 1 |  S   | (nbasis,nbasis)   | 
-|Kinetic| $-\sum^N_{i=1}\frac{\hbar^2}{2m_i}{\nabla}_i^2$ |  T   | (nbasis,nbasis) | 
-|Nuclear Attraction| $-\sum^N_{i=1}\sum^M_{\alpha=1} \frac{Z_a e^2}{\textbf{r}_{ia}}$ |  V   | (nbasis,nbasis) | 
-|Electron Repulsion| $\sum^N_{i=1}\sum^N_{j>i} \frac{e^2}{\textbf{r}_{ij}}$   |Eri   | (nbasis,nbasis,nbasis,nbasis) |
+|Kinetic| $-{\nabla}_i^2$ |  T   | (nbasis,nbasis) | 
+|Nuclear Attraction| $-\frac{Z_a}{\textbf{r}_{ia}}$ |  V   | (nbasis,nbasis) | 
+|Electron Repulsion| $\frac{1}{\textbf{r}_{ij}}$   |Eri   | (nbasis,nbasis,nbasis,nbasis) |
 
 
 ### Primitive Gaussian Type Orbital
@@ -63,7 +63,6 @@ $$
 - $r_A = r − A$ is the electronic coordinate.
 - i ≥ 0, j ≥ 0, k ≥ 0 is the quantum number.
 - Total angular-momentum quantum number l = i + j + k ≥ 0
-
 
 ```python 
 from gaint.gauss import PrimitiveGaussian
@@ -97,31 +96,52 @@ CartAng = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
 
 pga = PrimitiveGaussian(1.0,FCenter[0],CartAng[0],OrbCoeff[0,0])
 pgb = PrimitiveGaussian(1.0,FCenter[6],CartAng[6],OrbCoeff[6,0])
-
 ```
 
-### Use Integral
-
-
-
+### Obara-Saika Scheme
 ```python
-# The overlap integral between two primitive Gaussian type orbital
-from gaint.obara_saikai.overlap import OverlapIntegral
-S_integral = OverlapIntegral()
-print(S_integral(pga,pgb))
+# The non-normalizecd integral between two primitive Gaussian type orbital
+from gaint.obara_saikai.overlap import Overlap
+S = Overlap()
+s17 = S(pga,pgb)
+print(np.isclose(s_17,-0.0000888019))
 
 from gaint.obara_saikai.kinetic import Kinetic
 T = Kinetic()
-t17 = T(pg1,pg2)
+t17 = T(pga,pgb)
 print(np.isclose(t17,0.00167343))
 
 from gaint.obara_saikai.nuclear_attraction import NuclearAttraction
 V = NuclearAttraction()
-v17 = V(pg1,pg2,FCenter[0])
+v17 = V(pga,pgb,FCenter[0])
 print(np.isclose(v17,-0.0000854386))
 
 from gaint.obara_saikai.electron_repulsion import ElectronRepulsion
 Eri = ElectronRepulsion()
-eri1717 = Eri(g1,g2,g1,g2)
+eri1717 = Eri(pga,pgb,pga,pgb)
+print(np.isclose(eri1717,1.9060888184873294e-08))
+```
+
+### McMurchie Davidson Scheme
+```python
+# The non-normalizecd integral between two primitive Gaussian type orbital
+from gaint.mcmurchie_davidson.overlap import Overlap
+S = Overlap()
+s17 = S(pga,pgb)
+print(np.isclose(s_17,-0.0000888019))
+
+from gaint.mcmurchie_davidson.kinetic import Kinetic
+T = Kinetic()
+t17 = T(pga,pgb)
+print(np.isclose(t17,0.00167343))
+
+from gaint.mcmurchie_davidson.nuclear_attraction import NuclearAttraction
+V = NuclearAttraction()
+v17 = V(pga,pgb,FCenter[0])
+print(np.isclose(v17,-0.0000854386))
+
+from gaint.mcmurchie_davidson.electron_repulsion import ElectronRepulsion
+Eri = ElectronRepulsion()
+eri1717 = Eri(pga,pgb,pga,pgb)
 print(np.isclose(eri1717,1.9060888184873294e-08))
 ```
