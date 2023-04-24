@@ -1,78 +1,63 @@
 import numpy as np
-from gaint.mcmurchie_davidson.expansion_coefficients import E1d
 
-        
-def S1d(a, b, i, j, A, B):
-    """The Mcmurchie Davidson scheme for one-dimensional overlap integrals over primitive
-    Gaussian orbitals.
+class Overlap(object):
+    """The McMurchie Davidson scheme for overlap integral over primitive Gaussian orbitals.
 
-    Parameters
+    Attributes
     ----------
-    a : float 
-        Gaussian exponent facotr.
-
-    b : float 
-        Gaussian exponent facotr.
-
-    i : int
-        Angular momentum quantum number.
-
-    j : int
-        Angular momentum quantum number.
-
-    A : float
-        Coordinate in on direction.
-
-    B : float
-        Coordinate in on direction.
-
-    Returns
-    -------
-    result : float
-        The non-normalizecd overlap interals in one dimension.
+    E1d : function
+        One dimensional expansion coefficient function.
     """
-    # p the total exponent
-    p = a + b
-    result = E1d(i,j,0,A,B,a,b)*np.sqrt(np.pi/p)
-    return result
+    def __init__(self):
+        """Initialize the instance.
+        """
+        from gaint.mcmurchie_davidson.expansion_coefficient import E1d
+        self.E1d = E1d
 
-def S3d(a, b, ikm, jln, A, B):
-    """The Obara-Saika scheme for three-dimensional overlap integrals over primitive
-    Gaussian orbitals.
+    def __call__(self, pga, pgb):
+        """Evaluates overlap integral over two primitive gaussian orbitals.
 
-    Parameters
-    ----------
-    a : float 
-        Gaussian exponent facotr.
+        Parameters
+        ----------
+        pga: PrimitiveGaussian
+            The first primitive gaussian orbital.
 
-    b : float 
-        Gaussian exponent facotr.
+        pgb: PrimitiveGaussian
+            The second primitive gaussian orbital.
+    
+        Return
+        ------
+        result : float
+            Integral value.
+        """
+        result = 1
+        for r in range(3):
+            result *= self.S1d(r, pga, pgb)
+        return result
 
-    ikm : List[int]
-        Angular momentum quantum number.
+    def S1d(self, r, pga, pgb):
+        """Evaluates one dimensional overlap integral over two primitive gaussian orbitals.
 
-    jln : List[int]
-        Angular momentum quantum number.
+        Parameters
+        ----------
+        r : int
+            Cartesian index 0, 1, 2. 
 
-    A : List[float]
-        Coordinate at positon A.
+        pga: PrimitiveGaussian
+            The first primitive gaussian orbital.
 
-    B : List[float]
-        Coordinate at postion B.
-
-    Returns
-    -------
-    result : float
-        The non-normalizecd overlap interals in three dimension.
-    """
-    i,k,m = ikm
-    j,l,n = jln
-    Sij = S1d(a,b,i,j,A[0],B[0]) # X
-    Skl = S1d(a,b,k,l,A[1],B[1]) # Y
-    Smn = S1d(a,b,m,n,A[2],B[2]) # Z
-    result = Sij*Skl*Smn
-    return result
-
+        pgb: PrimitiveGaussian
+            The second primitive gaussian orbital.
+        """
+        i = pga.shell[r]
+        j = pgb.shell[r]
+        A = pga.origin[r]
+        B = pgb.origin[r]
+        a = pga.exponent
+        b = pgb.exponent
+        p = a + b 
+        return np.sqrt(np.pi/p)*self.E1d(i,j,0,A,B,a,b)
+       
 if __name__ == '__main__':
     # Coordinate of H2O molecule
     H2O = [[0., 1.43233673, -0.96104039],
@@ -93,5 +78,10 @@ if __name__ == '__main__':
     CartAng = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
     [1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
-    chi_17 = S3d(OrbCoeff[0,0], OrbCoeff[6,0], CartAng[0], CartAng[6], FCenter[0], FCenter[6])
-    print(np.isclose(chi_17,-0.0000888019))
+    from gaint.gauss import PrimitiveGaussian
+    pga = PrimitiveGaussian(1.0,FCenter[0],CartAng[0],OrbCoeff[0,0])
+    pgb = PrimitiveGaussian(1.0,FCenter[6],CartAng[6],OrbCoeff[6,0])
+
+    S = Overlap()
+    s17 = S(pga,pgb)
+    print(np.isclose(s17,-0.0000888019)) 

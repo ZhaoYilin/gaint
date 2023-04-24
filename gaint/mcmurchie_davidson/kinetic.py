@@ -1,85 +1,92 @@
 import numpy as np
-from gaint.mcmurchie_davidson.overlap import S1d
 
-def T1d(a, b, i, j, A, B):
-    """The McMurchie Davidson scheme for three-dimensional kinetic energy integral over
-    primitive Gaussian orbitals.
+class Kinetic(object):
+    """The McMurchie Davidson scheme for overlap integral over primitive Gaussian orbitals.
 
-    Parameters
+    Attributes
     ----------
-    a : float 
-        Gaussian exponent facotr.
-
-    b : float 
-        Gaussian exponent facotr.
-
-    i : int
-        Angular momentum quantum number.
-
-    j : int
-        Angular momentum quantum number.
-
-    A : float
-        Coordinate in on direction.
-
-    B : float
-        Coordinate in on direction.
-
-    Returns
-    -------
-    result : float
-        The non-normalizecd kinetic interals in one dimension.
+    S1d : function
+        One dimensional overlap function.
     """
-    S1 = S1d(a,b,i,j+2,A,B)
-    S2 = S1d(a,b,i,j,A,B)
-    S3 = S1d(a,b,i,j-2,A,B)
-    result = -2*b**2*S1+b*(2*j+1)*S2-0.5*j*(j-1)*S3
-    return result
+    def __init__(self):
+        """Initialize the instance.
+        """
+        from gaint.mcmurchie_davidson.overlap import Overlap
+        overlap = Overlap()
+        self.S1d = overlap.S1d
 
-def T3d(a, b, ikm, jln, A, B):
-    """The Obara-Saika scheme for three-dimensional kinetic energy integral over
-    primitive Gaussian orbitals.
+    def __call__(self, pga, pgb):
+        """Evaluates kinetic energy integral over two primitive gaussian orbitals.
 
-    Parameters
-    ----------
-    a : float 
-        Gaussian exponent facotr.
+        Parameters
+        ----------
+        pga: PrimitiveGaussian
+            The first primitive gaussian orbital.
 
-    b : float 
-        Gaussian exponent facotr.
+        pgb: PrimitiveGaussian
+            The second primitive gaussian orbital.
 
-    ikm : List[int]
-        Angular momentum quantum number.
+        Return
+        ------
+        result : float
+            Integral value.
+        """
+        Sij = self.S1d(0,pga,pgb)
+        Skl = self.S1d(1,pga,pgb)
+        Smn = self.S1d(2,pga,pgb)
 
-    jln : List[int]
-        Angular momentum quantum number.
+        Tij = self.T1d(0,pga,pgb)
+        Tkl = self.T1d(1,pga,pgb)
+        Tmn = self.T1d(2,pga,pgb)
 
-    A : List[float]
-        Coordinate at positon A.
+        Tab = Tij*Skl*Smn+Sij*Tkl*Smn+Sij*Skl*Tmn
+        return Tab
 
-    B : List[float]
-        Coordinate at postion B.
+    def T1d(self, r, pga, pgb):
+        """The McMurchie Davidson scheme for one-dimensional kinetic energy integral over
+        primitive Gaussian orbitals.
 
-    Returns
-    -------
-    result : float
-        The non-normalizecd overlap interals in three dimension.
-    """
-    i,k,m = ikm
-    j,l,n = jln
-    Tij = T1d(a,b,i,j,A[0],B[0])
-    Skl = S1d(a,b,k,l,A[1],B[1])
-    Smn = S1d(a,b,m,n,A[2],B[2])
-    Sij = S1d(a,b,i,j,A[0],B[0])
-    Tkl = T1d(a,b,k,l,A[1],B[1])
-    Smn = S1d(a,b,m,n,A[2],B[2])
-    Sij = S1d(a,b,i,j,A[0],B[0])
-    Skl = S1d(a,b,k,l,A[1],B[1])
-    Tmn = T1d(a,b,m,n,A[2],B[2])
-    Tab = Tij*Skl*Smn+Sij*Tkl*Smn+Sij*Skl*Tmn
-    result = Tab
-    return result
+        Parameters
+        ----------
+        pga: PrimitiveGaussian
+            The first primitive gaussian orbital.
 
+        pgb: PrimitiveGaussian
+            The second primitive gaussian orbital.
+
+        Returns
+        -------
+        result : float
+            The non-normalizecd kinetic interals in one dimension.
+        """
+        cb = pgb.coefficient
+        B = pgb.origin
+        b = pgb.exponent
+        j = pgb.shell[0]
+        l = pgb.shell[1]
+        n = pgb.shell[2]
+
+        if r==0:
+            pgb_j_p2 = PrimitiveGaussian(cb, B, (j + 2, l, n), b)
+            pgb_j_m2 = PrimitiveGaussian(cb, B, (j - 2, l, n), b)
+            S1 = self.S1d(0,pga,pgb_j_p2)
+            S2 = self.S1d(0,pga,pgb)
+            S3 = self.S1d(0,pga,pgb_j_m2)
+        if r==1:
+            pgb_l_p2 = PrimitiveGaussian(cb, B, (j, l+2, n), b)
+            pgb_l_m2 = PrimitiveGaussian(cb, B, (j, l-2, n), b)
+            S1 = self.S1d(1,pga,pgb_l_p2)
+            S2 = self.S1d(1,pga,pgb)
+            S3 = self.S1d(1,pga,pgb_l_m2)
+        if r==2:
+            pgb_n_p2 = PrimitiveGaussian(cb, B, (j, l, n+2), b)
+            pgb_n_m2 = PrimitiveGaussian(cb, B, (j, l, n-2), b)
+            S1 = self.S1d(2,pga,pgb_n_p2)
+            S2 = self.S1d(2,pga,pgb)
+            S3 = self.S1d(2,pga,pgb_n_m2)
+
+        result = -2*b**2*S1+b*(2*pgb.shell[r]+1)*S2-0.5*pgb.shell[r]*(pgb.shell[r]-1)*S3
+        return result
 
 if __name__ == '__main__':
     # Coordinate of H2O molecule
@@ -101,6 +108,10 @@ if __name__ == '__main__':
     CartAng = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
     [1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
-    chi_17 = T3d(OrbCoeff[0,0], OrbCoeff[6,0], CartAng[0], CartAng[6], FCenter[0], FCenter[6])
-    print(np.isclose(chi_17,0.00167343))
+    from gaint.gauss import PrimitiveGaussian
+    pg1 = PrimitiveGaussian(1.0,FCenter[0],CartAng[0],OrbCoeff[0,0])
+    pg2 = PrimitiveGaussian(1.0,FCenter[6],CartAng[6],OrbCoeff[6,0])
+    T = Kinetic()
+    t17 = T(pg1,pg2)
+    print(np.isclose(t17,0.00167343))
 

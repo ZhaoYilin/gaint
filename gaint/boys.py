@@ -1,43 +1,39 @@
-import numpy as np
 import scipy.special as sc
 from math import exp, gamma, sqrt
 
-def boys(n,t):
+def boys(N,x):
     """Boys function for the calculation of coulombic integrals.
 
     Parameters
     ----------
-    n : int
+    N : int
         Order of boys function
 
-    t : float
+    x : float
         Varible for boys function.
 
-    Raises
-    ------
-    TypeError
-        If boys function order is not an integer.
-
-    ValueError
-        If boys function order n is not a none negative number.
+    Returns
+    -------
+    result : float
+        The boys function f_{N}(x).
     """
-    if not isinstance(n, int):
-        raise TypeError("Boys function order n must be an integer")
-    if n < 0:
-        raise ValueError("Boys function order n must be a none negative number")    
-    if not isinstance(t, float):
-        raise TypeError("Boys function varible t must be integer or float")
-    return sc.hyp1f1(n+0.5,n+1.5,-t)/(2.0*n+1.0)
+    result =  sc.hyp1f1(N+0.5,N+1.5,-x)/(2.0*N+1.0)
+    return result
 
 def boys_recursion(N, x, f_N):
-    """Returns the answer to the boys function f_{v - 1}(x) using the
-    answer for the boys function f_{v}(x).
+    """Returns the answer to the boys function f_{N - 1}(x) using the
+    answer for the boys function f_{N}(x).
 
     Parameters
     ----------
-    v : {int, float}
-    x : {int, float}
-    f_v : float
+    N : int
+        Order of boys function
+
+    x : float
+        Varible for boys function.
+
+    f_N : float 
+        Answer for the boys function f_{N}(x).
 
     Returns
     -------

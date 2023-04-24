@@ -15,6 +15,9 @@ class Kinetic(object):
 
     P : List[float,float,float] 
         The centre of charge coordinate.
+        
+    S1d : function
+        One dimensional overlap integral function.
     """
     def __init__(self):
         """Initialize the instance.
@@ -23,7 +26,8 @@ class Kinetic(object):
         self.p = 0
         self.mu = 0
         self.P = ()
-        self.overlap = Overlap()
+        overlap = Overlap()
+        self.S1d = overlap.S1d
 
     def __call__(self, pga, pgb):
         """Evaluates kinetic energy integral over two primitive gaussian orbitals.
@@ -41,9 +45,9 @@ class Kinetic(object):
         result : float
             Integral value.
         """
-        Sij = self.overlap.S1d(0,pga,pgb)
-        Skl = self.overlap.S1d(1,pga,pgb)
-        Smn = self.overlap.S1d(2,pga,pgb)
+        Sij = self.S1d(0,pga,pgb)
+        Skl = self.S1d(1,pga,pgb)
+        Smn = self.S1d(2,pga,pgb)
 
         Tij = self.T1d(0,pga,pgb)
         Tkl = self.T1d(1,pga,pgb)
@@ -134,9 +138,9 @@ class Kinetic(object):
             term2 = pga_1.shell[r] * (1 / (2 * p)) * self.T1d(r, pga_2, pgb)
         if pgb.shell[r] >= 0:
             term3 = pgb.shell[r] * (1 / (2 * p)) * self.T1d(r, pga_1, pgb_1)
-        term4 =  (2*a*b) / p * self.overlap.S1d(r, pga, pgb)
+        term4 =  (2*a*b) / p * self.S1d(r, pga, pgb)
         if pga_1.shell[r] >= 0:
-            term5 = pgb.shell[r] * (b / p) * self.overlap.S1d(r, pga_2, pgb)
+            term5 = pgb.shell[r] * (b / p) * self.S1d(r, pga_2, pgb)
         return term1 + term2 + term3 + term4 - term5
 
     def gaussian_factory(self, r, pga, pgb):

@@ -31,15 +31,6 @@ def E1d(i,j,t,A,B,a,b):
     result : float
         The non-normalizecd overlap interals in one dimension.
     """
-
-
-    ''' Recursive definition of Hermite Gaussian coefficients.
-        Returns a float.
-        a: orbital exponent on Gaussian 'a' (e.g. alpha in the text)
-        b: orbital exponent on Gaussian 'b' (e.g. beta in the text)
-        i,j: orbital angular momentum number on Gaussian 'a' and 'b'
-        Qx: distance between origins of Gaussian 'a' and 'b'
-    '''
     p = a + b
     q = a*b/p
     AB = A-B

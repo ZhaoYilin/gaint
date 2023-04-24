@@ -3,7 +3,7 @@ from gaint.boys import *
 from gaint.gauss import PrimitiveGaussian
 
 class NuclearAttraction(object):
-    """The Obara-Saika scheme for three-dimensional nuclear attraction integral over
+    """The Obara-Saika scheme for nuclear attraction integral over
     primitive Gaussian orbitals.
 
     Attributes
@@ -22,11 +22,17 @@ class NuclearAttraction(object):
 
     Kab : float
         The pre-exponential factor.
+        
+    boys_dict : dictionary
+        Dictionary of boys functions.
 
     Methods
     -------
     __init__(self)
         Initialize the instance.
+
+    __call__(self, pga, pgb, C)
+        Evaluates nuclear attraction integral over two primitive gaussian orbitals.
     """
     def __init__(self):
         """Initialize the instance.

@@ -24,9 +24,11 @@ class PrimitiveGaussian(object):
     
     Methods
     -------
-    __init__(self,coefficent, origin, shell, exponent)
+    __init__(self, coefficent, origin, shell, exponent)
         Initialize the instance.
 
+    __call__(self,x,y,z)
+        Returns the value of the function at point x, y, z.
     """
     def __init__(self, coefficient, origin, shell, exponent):
         """Initialize the instance.
@@ -62,7 +64,6 @@ class PrimitiveGaussian(object):
         Returns
         -------
         result : float
-
         """
         X = x-self.origin[0]
         Y = y-self.origin[1]

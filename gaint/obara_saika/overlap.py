@@ -19,9 +19,9 @@ class Overlap(object):
     def __init__(self):
         """Initialize the instance.
         """
-        self.p = 0
-        self.mu = 0
-        self.P = ()
+        self.p = 0.
+        self.mu = 0.
+        self.P = []
 
     def __call__(self, pga, pgb):
         """Evaluates overlap integral over two primitive gaussian orbitals.
@@ -62,9 +62,13 @@ class Overlap(object):
         b = pgb.exponent
         p = a + b
         mu = (a*b)/(a+b)
+        self.p = p
+        self.mu = mu
 
         A = np.array(pga.origin)
         B = np.array(pgb.origin)
+        P = (a*A+b*B)/p
+        self.P = P
         XAB = A-B
 
         if pga.shell[r] > 0:
@@ -109,12 +113,12 @@ class Overlap(object):
 
         a = pga.exponent
         b = pgb.exponent
-        p = a + b
-        mu = (a*b)/(a+b)
+        p = self.p
+        mu = self.mu
 
         A = np.array(pga.origin)
         B = np.array(pgb.origin)
-        P = (a*A+b*B)/p
+        P = self.P
         XPA = P-A
 
         if XPA[r] != 0:
