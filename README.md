@@ -71,6 +71,7 @@ H2O = [[0., 1.43233673, -0.96104039],
 [0., -1.43233673, -0.96104039],
 [0., 0., 0.24026010]]
 
+
 # Primitive contraction coefficients
 PrimCoeff = np.array([[0.1543289673, 0.5353281423, 0.4446345422],
 [0.1543289673, 0.5353281423, 0.4446345422],
@@ -94,8 +95,8 @@ FCenter = [H2O[0], H2O[1], H2O[2], H2O[2], H2O[2], H2O[2], H2O[2]]
 CartAng = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
 [1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
-pga = PrimitiveGaussian(1.0,FCenter[0],CartAng[0],OrbCoeff[0,0])
-pgb = PrimitiveGaussian(1.0,FCenter[6],CartAng[6],OrbCoeff[6,0])
+pga = PrimitiveGaussian(PrimCoeff[0,0],FCenter[0],CartAng[0],OrbCoeff[0,0])
+pgb = PrimitiveGaussian(PrimCoeff[6,0],FCenter[6],CartAng[6],OrbCoeff[6,0])
 ```
 
 ### Obara-Saika Scheme
