@@ -287,6 +287,15 @@ if __name__ == '__main__':
     [0., -1.43233673, -0.96104039],
     [0., 0., 0.24026010]]
 
+    # Primitive contraction coefficients
+    PrimCoeff = np.array([[0.1543289673, 0.5353281423, 0.4446345422],
+    [0.1543289673, 0.5353281423, 0.4446345422],
+    [0.1543289673, 0.5353281423, 0.4446345422],
+    [-0.09996722919, 0.3995128261, 0.7001154689],
+    [0.155916275, 0.6076837186, 0.3919573931],
+    [0.155916275, 0.6076837186, 0.3919573931],
+    [0.155916275, 0.6076837186, 0.3919573931]])
+
     # Orbital exponents
     OrbCoeff = np.array([[3.425250914, 0.6239137298, 0.168855404],
     [3.425250914, 0.6239137298, 0.168855404],
@@ -301,8 +310,8 @@ if __name__ == '__main__':
     CartAng = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
     [1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
-    g1 = PrimitiveGaussian(1.0,FCenter[0],CartAng[0],OrbCoeff[0,0])
-    g2 = PrimitiveGaussian(1.0,FCenter[6],CartAng[6],OrbCoeff[6,0])
+    pga = PrimitiveGaussian(PrimCoeff[0,0],FCenter[0],CartAng[0],OrbCoeff[0,0])
+    pgb = PrimitiveGaussian(PrimCoeff[6,0],FCenter[6],CartAng[6],OrbCoeff[6,0])
     Eri = ElectronRepulsion()
-    eri1717 = Eri(g1,g2,g1,g2)
+    eri1717 = Eri(pga,pgb,pga,pgb)
     print(np.allclose(eri1717,1.9060888184873294e-08))
