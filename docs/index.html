@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MoHa 0.1.0 &mdash; moha 0.1.0 documentation</title>
+  <title>GaInt 0.1.0 &mdash; gaint 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/moha.ico"/>
@@ -17,7 +17,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Installation" href="quick_start/installation.html" /> 
+    <link rel="next" title="1. Introduction" href="user/introduction.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -39,19 +39,15 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">QUICK START:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="quick_start/installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quick_start/example.html">2. Examples</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">USER DOCUMENTATION:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">USER DOCUMENTATION:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="user/introduction.html">1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/molecule.html">2. Molecule</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/basis.html">3. Basis Set</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/basis.html#Primitive-Gaussian-Type-Orbital">4. Primitive Gaussian Type Orbital</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/obara_saika.html">5. Hamiltonian Integral</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/mcmurchie_davidson.html">6. Hamiltonian Integral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/installation.html">2. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/molecule.html">3. Molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/basis.html">4. Basis Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/basis.html#Primitive-Gaussian-Type-Orbital">5. Primitive Gaussian Type Orbital</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/obara_saika.html">6. Hamiltonian Integral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/mcmurchie_davidson.html">7. Mcmurchie Davidson Scheme</a></li>
 </ul>
 
         </div>
@@ -60,7 +56,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">moha</a>
+          <a href="#">gaint</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -68,7 +64,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>MoHa 0.1.0</li>
+      <li>GaInt 0.1.0</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -78,56 +74,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="moha-version">
-<h1>MoHa 0.1.0<a class="headerlink" href="#moha-version" title="Permalink to this headline"></a></h1>
-<p><strong>MoHa</strong> is the abbreviation of Molecular Hamiltonian. It is a general-purpose electronic structure program written in python that emphasizes code simplicity and facilitates new method development. The package provides the standard module including custom Hamiltonians, using mean-field and post-mean-field methods with standard Gaussian basis functions, post-process for varieties properties.</p>
+  <section id="gaint-version">
+<h1>GaInt 0.1.0<a class="headerlink" href="#gaint-version" title="Permalink to this headline"></a></h1>
+<p><strong>GaInt</strong> is the abbreviation of Gaussian Integral, it is a python package for the non-normalizecd molecular integrals over Primitive Cartesian Gaussian orbitals. This is a particularly naive implementation in python: little attempt is made to conserve memory or CPU time. Nevertheless, it is useful for small test calculations, in particular for investigating ideas quantum chemistry.</p>
 <section id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline"></a></h2>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">QUICK START:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="quick_start/installation.html">1. Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quick_start/installation.html#Compiling-from-source-code">1.1. Compiling from source code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick_start/installation.html#Prerequisites">1.2. Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick_start/installation.html#Installation-with-pip">1.3. Installation with pip</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="quick_start/example.html">2. Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quick_start/example.html#Hartree-Fock">2.1. Hartree-Fock</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick_start/example.html#Post-Hartree-Fock">2.2. Post-Hartree-Fock</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick_start/example.html#Property">2.3. Property</a></li>
-</ul>
-</li>
-</ul>
-</div>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">USER DOCUMENTATION:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="user/introduction.html">1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/molecule.html">2. Molecule</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user/molecule.html#Build">2.1. Build</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/molecule.html#Geometry-Methods">2.2. Geometry Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/molecule.html#Point-Group">2.3. Point Group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/installation.html">2. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/installation.html#Prerequisites">2.1. Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/installation.html#Compiling-from-source-code">2.2. Compiling from source code</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="user/basis.html">3. Basis Set</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/basis.html#Primitive-Gaussian-Type-Orbital">4. Primitive Gaussian Type Orbital</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/obara_saika.html">5. Hamiltonian Integral</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Primitive-Gaussian-Type-Orbital">5.1. Primitive Gaussian Type Orbital</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Boys-Function">5.2. Boys Function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Overlap">5.3. Overlap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Kinetic">5.4. Kinetic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Nuclear-Attraction">5.5. Nuclear Attraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Electron-Repulsion">5.6. Electron Repulsion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/molecule.html">3. Molecule</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/molecule.html#Build">3.1. Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/molecule.html#Geometry-Methods">3.2. Geometry Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/molecule.html#Point-Group">3.3. Point Group</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="user/mcmurchie_davidson.html">6. Hamiltonian Integral</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Primitive-Gaussian-Type-Orbital">6.1. Primitive Gaussian Type Orbital</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Boys-Function">6.2. Boys Function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Overlap">6.3. Overlap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Kinetic">6.4. Kinetic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Nuclear-Attraction">6.5. Nuclear Attraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Electron-Repulsion">6.6. Electron Repulsion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/basis.html">4. Basis Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/basis.html#Primitive-Gaussian-Type-Orbital">5. Primitive Gaussian Type Orbital</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/obara_saika.html">6. Hamiltonian Integral</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Primitive-Gaussian-Type-Orbital">6.1. Primitive Gaussian Type Orbital</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Boys-Function">6.2. Boys Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Overlap">6.3. Overlap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Kinetic">6.4. Kinetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Nuclear-Attraction">6.5. Nuclear Attraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Electron-Repulsion">6.6. Electron Repulsion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user/mcmurchie_davidson.html">7. Mcmurchie Davidson Scheme</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Overlap">7.1. Overlap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Kinetic">7.2. Kinetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Nuclear-Attraction">7.3. Nuclear Attraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Electron-Repulsion">7.4. Electron Repulsion</a></li>
 </ul>
 </li>
 </ul>
@@ -146,13 +128,13 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="quick_start/installation.html" class="btn btn-neutral float-right" title="1. Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="user/introduction.html" class="btn btn-neutral float-right" title="1. Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Yilin Zhao.</p>
+    <p>&#169; Copyright 2023, Yilin Zhao.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

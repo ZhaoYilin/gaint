@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5. Hamiltonian Integral &mdash; moha 0.1.0 documentation</title>
+  <title>6. Hamiltonian Integral &mdash; gaint 0.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -20,8 +20,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6. Hamiltonian Integral" href="mcmurchie_davidson.html" />
-    <link rel="prev" title="3. Basis Set" href="basis.html" /> 
+    <link rel="next" title="7. Mcmurchie Davidson Scheme" href="mcmurchie_davidson.html" />
+    <link rel="prev" title="4. Basis Set" href="basis.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,27 +43,23 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">QUICK START:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../quick_start/installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../quick_start/example.html">2. Examples</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">USER DOCUMENTATION:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">USER DOCUMENTATION:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="molecule.html">2. Molecule</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basis.html">3. Basis Set</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basis.html#Primitive-Gaussian-Type-Orbital">4. Primitive Gaussian Type Orbital</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Hamiltonian Integral</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#Primitive-Gaussian-Type-Orbital">5.1. Primitive Gaussian Type Orbital</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Boys-Function">5.2. Boys Function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Overlap">5.3. Overlap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Kinetic">5.4. Kinetic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Nuclear-Attraction">5.5. Nuclear Attraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Electron-Repulsion">5.6. Electron Repulsion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">2. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molecule.html">3. Molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basis.html">4. Basis Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basis.html#Primitive-Gaussian-Type-Orbital">5. Primitive Gaussian Type Orbital</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Hamiltonian Integral</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Primitive-Gaussian-Type-Orbital">6.1. Primitive Gaussian Type Orbital</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Boys-Function">6.2. Boys Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Overlap">6.3. Overlap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Kinetic">6.4. Kinetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Nuclear-Attraction">6.5. Nuclear Attraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Electron-Repulsion">6.6. Electron Repulsion</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="mcmurchie_davidson.html">6. Hamiltonian Integral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcmurchie_davidson.html">7. Mcmurchie Davidson Scheme</a></li>
 </ul>
 
         </div>
@@ -72,7 +68,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">moha</a>
+          <a href="../index.html">gaint</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -80,7 +76,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li><span class="section-number">5. </span>Hamiltonian Integral</li>
+      <li><span class="section-number">6. </span>Hamiltonian Integral</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/user/obara_saika.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -91,7 +87,7 @@
            <div itemprop="articleBody">
              
   <section id="Hamiltonian-Integral">
-<h1><span class="section-number">5. </span>Hamiltonian Integral<a class="headerlink" href="#Hamiltonian-Integral" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">6. </span>Hamiltonian Integral<a class="headerlink" href="#Hamiltonian-Integral" title="Permalink to this headline"></a></h1>
 <p>The one- and two-electron integrals involved in the chemical electronic Hamiltonian are considered in this subsection.</p>
 <p><span class="math">\begin{equation}
 \hat{H}= -\sum^N_{i=1}\frac{\hbar^2}{2m_i}{\nabla}_i^2
@@ -102,7 +98,7 @@
 \end{equation}</span></p>
 <p>There are many integration schemes including McMurchie–Davidson, Obara–Saika and Rys schemes. Here only Obara-Saika scheme is shown in this note.</p>
 <section id="Primitive-Gaussian-Type-Orbital">
-<h2><span class="section-number">5.1. </span>Primitive Gaussian Type Orbital<a class="headerlink" href="#Primitive-Gaussian-Type-Orbital" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">6.1. </span>Primitive Gaussian Type Orbital<a class="headerlink" href="#Primitive-Gaussian-Type-Orbital" title="Permalink to this headline"></a></h2>
 <p>Most quantum chemistry package supports Contracted Gaussian type orbtial(CGTO), it is an atomic orbital forming in linear combinations of primitive Gaussians type orbital(PGTO). Here in this note, only the integral over primitive Gaussian type orbital is to be considered which are defiend by an angular part which is homogeneous polynomial in the compoents x, y, and z of the position vector <span class="math notranslate nohighlight">\(\mathbf{r}\)</span>. That is,</p>
 <p><span class="math">\begin{equation}
 G_{ijk}(r_A,a) = x^i_A y^j_A z^k_A e^{-a r^2_A}
@@ -225,7 +221,7 @@ X_{AB} &= A_x - B_x
 </div>
 </section>
 <section id="Boys-Function">
-<h2><span class="section-number">5.2. </span>Boys Function<a class="headerlink" href="#Boys-Function" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">6.2. </span>Boys Function<a class="headerlink" href="#Boys-Function" title="Permalink to this headline"></a></h2>
 <p>The boys function of order n is defined by</p>
 <p><span class="math">\begin{equation}
 F_n(x) = \int_0^1 exp(-xt^2)t^{2n}dt\tag{1}
@@ -275,7 +271,7 @@ F_n(x) = \int_0^1 exp(-xt^2)t^{2n}dt\tag{1}
 </div>
 </section>
 <section id="Overlap">
-<h2><span class="section-number">5.3. </span>Overlap<a class="headerlink" href="#Overlap" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">6.3. </span>Overlap<a class="headerlink" href="#Overlap" title="Permalink to this headline"></a></h2>
 <p>Let us frist consider the simple overlap integral <span class="math">\begin{equation}
 S_{ab} = \langle G_a|G_b \rangle
 \end{equation}</span></p>
@@ -446,7 +442,7 @@ S_{0,0} = \sqrt(\frac{\pi}{p}) exp(-\mu X_{AB}^2)
 </div>
 </section>
 <section id="Kinetic">
-<h2><span class="section-number">5.4. </span>Kinetic<a class="headerlink" href="#Kinetic" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">6.4. </span>Kinetic<a class="headerlink" href="#Kinetic" title="Permalink to this headline"></a></h2>
 <p>Consider the integral of electrons kinetic energy</p>
 <p><span class="math">\begin{equation}
 \begin{aligned}
@@ -631,7 +627,7 @@ T_{0,0} = \left[a-2a^2(X_{PA}^2 + \frac{1}{2p})\right] S_{00}
 </div>
 </section>
 <section id="Nuclear-Attraction">
-<h2><span class="section-number">5.5. </span>Nuclear Attraction<a class="headerlink" href="#Nuclear-Attraction" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">6.5. </span>Nuclear Attraction<a class="headerlink" href="#Nuclear-Attraction" title="Permalink to this headline"></a></h2>
 <p><span class="math">\begin{equation}
 \begin{aligned}
 V_{a,b} &=\langle G_a \vert -\sum^N_{i=1}\sum^M_{\alpha=1} \frac{Z_\alpha e^2}{\textbf{r}_{i\alpha}} \vert G_b \rangle \\
@@ -921,7 +917,7 @@ V_{a,b} &= V_{ijklmn}^{000} = \Theta_{ijklmn}^{0}
 </div>
 </section>
 <section id="Electron-Repulsion">
-<h2><span class="section-number">5.6. </span>Electron Repulsion<a class="headerlink" href="#Electron-Repulsion" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">6.6. </span>Electron Repulsion<a class="headerlink" href="#Electron-Repulsion" title="Permalink to this headline"></a></h2>
 <p><span class="math">\begin{equation}
 V_{abcd} = \langle G_a G_b\vert \sum^N_{i=1}\sum^N_{j>i} \frac{e^2}{\textbf{r}_{ij}}\vert G_c G_d \rangle
 \end{equation}</span></p>
@@ -1263,14 +1259,14 @@ X_{QC}\Theta_{ijkl}^{N}
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="basis.html" class="btn btn-neutral float-left" title="3. Basis Set" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="mcmurchie_davidson.html" class="btn btn-neutral float-right" title="6. Hamiltonian Integral" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="basis.html" class="btn btn-neutral float-left" title="4. Basis Set" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mcmurchie_davidson.html" class="btn btn-neutral float-right" title="7. Mcmurchie Davidson Scheme" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Yilin Zhao.</p>
+    <p>&#169; Copyright 2023, Yilin Zhao.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -4,10 +4,9 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1. Introduction &mdash; gaint 0.1.0 documentation</title>
+  <title>2. Installation &mdash; gaint 0.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/moha.ico"/>
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -20,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2. Installation" href="installation.html" />
-    <link rel="prev" title="GaInt 0.1.0" href="../index.html" /> 
+    <link rel="next" title="3. Molecule" href="molecule.html" />
+    <link rel="prev" title="1. Introduction" href="introduction.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,8 +44,12 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">USER DOCUMENTATION:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">2. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Prerequisites">2.1. Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Compiling-from-source-code">2.2. Compiling from source code</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="molecule.html">3. Molecule</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basis.html">4. Basis Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basis.html#Primitive-Gaussian-Type-Orbital">5. Primitive Gaussian Type Orbital</a></li>
@@ -68,9 +71,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li><span class="section-number">1. </span>Introduction</li>
+      <li><span class="section-number">2. </span>Installation</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/user/introduction.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/user/installation.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -78,29 +81,46 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="Introduction">
-<h1><span class="section-number">1. </span>Introduction<a class="headerlink" href="#Introduction" title="Permalink to this headline"></a></h1>
-<p>To begin a quantum chemistry calculation, first build the Hamiltonian of a system. In terms of second quantization operators, a time-independent non-relativistic Hamiltonian gives: <span class="math">\begin{equation}
-H = - \sum_{ij} t_{ij}\hat{c}^{\dagger}_{i}\hat{c}_{j} + \frac{1}{2} \sum_{ijkl}
-V_{ijkl}\hat{c}^{\dagger}_{i}\hat{c}^{\dagger}_{k}\hat{c}_{l}\hat{c}_{j}
-\end{equation}</span></p>
-<p>There are many integration schemes including McMurchie–Davidson, Obara–Saika and Rys schemes. Here Obara-Saika and McMurchie–Davidson scheme is shown in this note.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+  <section id="Installation">
+<h1><span class="section-number">2. </span>Installation<a class="headerlink" href="#Installation" title="Permalink to this headline"></a></h1>
+<p>This section gives the recommended way to install GaInt. One can find the source code on Github <a class="reference external" href="https://zhaoyilin.github.io/gaint/">https://zhaoyilin.github.io/gaint/</a>.</p>
+<section id="Prerequisites">
+<h2><span class="section-number">2.1. </span>Prerequisites<a class="headerlink" href="#Prerequisites" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Prerequisties:</p>
+<ul>
+<li><p>Python 3.5 or above</p></li>
+<li><p>numpy 1.13.1</p></li>
+<li><p>scipy 0.19.1</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="Compiling-from-source-code">
+<h2><span class="section-number">2.2. </span>Compiling from source code<a class="headerlink" href="#Compiling-from-source-code" title="Permalink to this headline"></a></h2>
+<ul>
+<li><p>Compile from source</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/ZhaoYilin/gaint.git
+cd gaint
+python3 -m pip install -e .
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</li>
+<li><p>Using pip to install python package on GitHub</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/ZhaoYilin/gaint
 </pre></div>
 </div>
-</div>
+</li>
+</ul>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../index.html" class="btn btn-neutral float-left" title="GaInt 0.1.0" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="installation.html" class="btn btn-neutral float-right" title="2. Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="introduction.html" class="btn btn-neutral float-left" title="1. Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="molecule.html" class="btn btn-neutral float-right" title="3. Molecule" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
