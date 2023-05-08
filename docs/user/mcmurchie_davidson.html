@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>7. Mcmurchie Davidson Scheme &mdash; gaint 0.1.0 documentation</title>
+  <title>4. Mcmurchie Davidson Scheme &mdash; gaint 0.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -20,7 +20,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="6. Hamiltonian Integral" href="obara_saika.html" /> 
+    <link rel="next" title="5. Obara Saika Scheme" href="obara_saika.html" />
+    <link rel="prev" title="3. Basis Set" href="basis.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,19 +45,17 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">USER DOCUMENTATION:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">2. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="molecule.html">3. Molecule</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basis.html">4. Basis Set</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basis.html#Primitive-Gaussian-Type-Orbital">5. Primitive Gaussian Type Orbital</a></li>
-<li class="toctree-l1"><a class="reference internal" href="obara_saika.html">6. Hamiltonian Integral</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">7. Mcmurchie Davidson Scheme</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#Overlap">7.1. Overlap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Kinetic">7.2. Kinetic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Nuclear-Attraction">7.3. Nuclear Attraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Electron-Repulsion">7.4. Electron Repulsion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molecule.html">2. Molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basis.html">3. Basis Set</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Mcmurchie Davidson Scheme</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Overlap">4.1. Overlap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Kinetic">4.2. Kinetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Nuclear-Attraction">4.3. Nuclear Attraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Electron-Repulsion">4.4. Electron Repulsion</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="obara_saika.html">5. Obara Saika Scheme</a></li>
 </ul>
 
         </div>
@@ -73,7 +72,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li><span class="section-number">7. </span>Mcmurchie Davidson Scheme</li>
+      <li><span class="section-number">4. </span>Mcmurchie Davidson Scheme</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/user/mcmurchie_davidson.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -84,9 +83,9 @@
            <div itemprop="articleBody">
              
   <section id="Mcmurchie-Davidson-Scheme">
-<h1><span class="section-number">7. </span>Mcmurchie Davidson Scheme<a class="headerlink" href="#Mcmurchie-Davidson-Scheme" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">4. </span>Mcmurchie Davidson Scheme<a class="headerlink" href="#Mcmurchie-Davidson-Scheme" title="Permalink to this headline"></a></h1>
 <section id="Overlap">
-<h2><span class="section-number">7.1. </span>Overlap<a class="headerlink" href="#Overlap" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">4.1. </span>Overlap<a class="headerlink" href="#Overlap" title="Permalink to this headline"></a></h2>
 <p>Let us frist consider the simple overlap integral <span class="math">\begin{equation}
 S_{ab} = \langle G_a|G_b \rangle
 \end{equation}</span></p>
@@ -257,7 +256,7 @@ S_{0,0} = \sqrt(\frac{\pi}{p}) exp(-\mu X_{AB}^2)
 </div>
 </section>
 <section id="Kinetic">
-<h2><span class="section-number">7.2. </span>Kinetic<a class="headerlink" href="#Kinetic" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">4.2. </span>Kinetic<a class="headerlink" href="#Kinetic" title="Permalink to this headline"></a></h2>
 <p>Consider the integral of electrons kinetic energy</p>
 <p><span class="math">\begin{equation}
 \begin{aligned}
@@ -442,7 +441,7 @@ T_{0,0} = \left[a-2a^2(X_{PA}^2 + \frac{1}{2p})\right] S_{00}
 </div>
 </section>
 <section id="Nuclear-Attraction">
-<h2><span class="section-number">7.3. </span>Nuclear Attraction<a class="headerlink" href="#Nuclear-Attraction" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">4.3. </span>Nuclear Attraction<a class="headerlink" href="#Nuclear-Attraction" title="Permalink to this headline"></a></h2>
 <p><span class="math">\begin{equation}
 \begin{aligned}
 V_{a,b} &=\langle G_a \vert -\sum^N_{i=1}\sum^M_{\alpha=1} \frac{Z_\alpha e^2}{\textbf{r}_{i\alpha}} \vert G_b \rangle \\
@@ -732,7 +731,7 @@ V_{a,b} &= V_{ijklmn}^{000} = \Theta_{ijklmn}^{0}
 </div>
 </section>
 <section id="Electron-Repulsion">
-<h2><span class="section-number">7.4. </span>Electron Repulsion<a class="headerlink" href="#Electron-Repulsion" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">4.4. </span>Electron Repulsion<a class="headerlink" href="#Electron-Repulsion" title="Permalink to this headline"></a></h2>
 <p><span class="math">\begin{equation}
 V_{abcd} = \langle G_a G_b\vert \sum^N_{i=1}\sum^N_{j>i} \frac{e^2}{\textbf{r}_{ij}}\vert G_c G_d \rangle
 \end{equation}</span></p>
@@ -1074,7 +1073,8 @@ X_{QC}\Theta_{ijkl}^{N}
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="obara_saika.html" class="btn btn-neutral float-left" title="6. Hamiltonian Integral" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="basis.html" class="btn btn-neutral float-left" title="3. Basis Set" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="obara_saika.html" class="btn btn-neutral float-right" title="5. Obara Saika Scheme" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

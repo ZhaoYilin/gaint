@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3. Molecule &mdash; gaint 0.1.0 documentation</title>
+  <title>2. Molecule &mdash; gaint 0.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -20,8 +20,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4. Basis Set" href="basis.html" />
-    <link rel="prev" title="2. Installation" href="installation.html" /> 
+    <link rel="next" title="3. Basis Set" href="basis.html" />
+    <link rel="prev" title="1. Installation" href="installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,18 +45,16 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">USER DOCUMENTATION:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">2. Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Molecule</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#Build">3.1. Build</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Geometry-Methods">3.2. Geometry Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Point-Group">3.3. Point Group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">1. Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Molecule</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Build">2.1. Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Geometry-Methods">2.2. Geometry Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Point-Group">2.3. Point Group</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="basis.html">4. Basis Set</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basis.html#Primitive-Gaussian-Type-Orbital">5. Primitive Gaussian Type Orbital</a></li>
-<li class="toctree-l1"><a class="reference internal" href="obara_saika.html">6. Hamiltonian Integral</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mcmurchie_davidson.html">7. Mcmurchie Davidson Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basis.html">3. Basis Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcmurchie_davidson.html">4. Mcmurchie Davidson Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="obara_saika.html">5. Obara Saika Scheme</a></li>
 </ul>
 
         </div>
@@ -73,7 +71,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li><span class="section-number">3. </span>Molecule</li>
+      <li><span class="section-number">2. </span>Molecule</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/user/molecule.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -84,13 +82,13 @@
            <div itemprop="articleBody">
              
   <section id="Molecule">
-<h1><span class="section-number">3. </span>Molecule<a class="headerlink" href="#Molecule" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">2. </span>Molecule<a class="headerlink" href="#Molecule" title="Permalink to this headline"></a></h1>
 <p>A molecule is a system consisting of a nucleus and electrons. For quantum chemistry calculation in MoHa, we will always use the Born-Oppenheimer approximation, which assumes that the motion of atomic nuclei and electrons in a molecule can be separated. <span class="math">\begin{equation}
 \Psi_{molecule} = \psi_{electronic} \otimes \psi_{nuclear}
 \end{equation}</span></p>
 <p>The class <code class="docutils literal notranslate"><span class="pre">Molecule</span></code> in MoHa only contains information about the nuclear. In Moha package, it is a constructed as a subclass of python list, anyhow, for moha user, you can just use it as list of <code class="docutils literal notranslate"><span class="pre">Atom</span></code> instance.</p>
 <section id="Build">
-<h2><span class="section-number">3.1. </span>Build<a class="headerlink" href="#Build" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">2.1. </span>Build<a class="headerlink" href="#Build" title="Permalink to this headline"></a></h2>
 <p>To build a water molecule with MoHa,</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -174,7 +172,7 @@ comment line
 </table>
 </section>
 <section id="Geometry-Methods">
-<h2><span class="section-number">3.2. </span>Geometry Methods<a class="headerlink" href="#Geometry-Methods" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">2.2. </span>Geometry Methods<a class="headerlink" href="#Geometry-Methods" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Bond Lengths</p></li>
 </ul>
@@ -283,7 +281,7 @@ I_{zx}&I_{zy}&I_{zz}\\
 </div>
 </section>
 <section id="Point-Group">
-<h2><span class="section-number">3.3. </span>Point Group<a class="headerlink" href="#Point-Group" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">2.3. </span>Point Group<a class="headerlink" href="#Point-Group" title="Permalink to this headline"></a></h2>
 <p>Abelian groups are special types of groups in which commutativity holds. In other words, the binary operation on such groups is commutative. Because these abelian groups P all have real-valued character tables, the direct product of any irrep <span class="math notranslate nohighlight">\(I_j\)</span> with itself gives the trivial irrep <span class="math notranslate nohighlight">\(I_0\)</span>:</p>
 <p><span class="math">\begin{equation}
 \forall I_j: I_j\otimes I_j  = I_0
@@ -410,8 +408,8 @@ I_{zx}&I_{zy}&I_{zz}\\
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="installation.html" class="btn btn-neutral float-left" title="2. Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="basis.html" class="btn btn-neutral float-right" title="4. Basis Set" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="1. Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="basis.html" class="btn btn-neutral float-right" title="3. Basis Set" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

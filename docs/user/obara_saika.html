@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6. Hamiltonian Integral &mdash; gaint 0.1.0 documentation</title>
+  <title>5. Obara Saika Scheme &mdash; gaint 0.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -20,8 +20,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7. Mcmurchie Davidson Scheme" href="mcmurchie_davidson.html" />
-    <link rel="prev" title="4. Basis Set" href="basis.html" /> 
+    <link rel="prev" title="4. Mcmurchie Davidson Scheme" href="mcmurchie_davidson.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,21 +44,17 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">USER DOCUMENTATION:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">2. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="molecule.html">3. Molecule</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basis.html">4. Basis Set</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basis.html#Primitive-Gaussian-Type-Orbital">5. Primitive Gaussian Type Orbital</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Hamiltonian Integral</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#Primitive-Gaussian-Type-Orbital">6.1. Primitive Gaussian Type Orbital</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Boys-Function">6.2. Boys Function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Overlap">6.3. Overlap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Kinetic">6.4. Kinetic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Nuclear-Attraction">6.5. Nuclear Attraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Electron-Repulsion">6.6. Electron Repulsion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molecule.html">2. Molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basis.html">3. Basis Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcmurchie_davidson.html">4. Mcmurchie Davidson Scheme</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Obara Saika Scheme</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Overlap">5.1. Overlap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Kinetic">5.2. Kinetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Nuclear-Attraction">5.3. Nuclear Attraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Electron-Repulsion">5.4. Electron Repulsion</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="mcmurchie_davidson.html">7. Mcmurchie Davidson Scheme</a></li>
 </ul>
 
         </div>
@@ -76,7 +71,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li><span class="section-number">6. </span>Hamiltonian Integral</li>
+      <li><span class="section-number">5. </span>Obara Saika Scheme</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/user/obara_saika.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -86,192 +81,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="Hamiltonian-Integral">
-<h1><span class="section-number">6. </span>Hamiltonian Integral<a class="headerlink" href="#Hamiltonian-Integral" title="Permalink to this headline"></a></h1>
-<p>The one- and two-electron integrals involved in the chemical electronic Hamiltonian are considered in this subsection.</p>
-<p><span class="math">\begin{equation}
-\hat{H}= -\sum^N_{i=1}\frac{\hbar^2}{2m_i}{\nabla}_i^2
--\sum^N_{i=1}\sum^M_{\alpha=1} \frac{Z_a e^2}{\textbf{r}_{ia}}
-+\sum^N_{i=1}\sum^N_{j>i} \frac{e^2}{\textbf{r}_{ij}}
-\tag{1}
-\label{ham}
-\end{equation}</span></p>
-<p>There are many integration schemes including McMurchie–Davidson, Obara–Saika and Rys schemes. Here only Obara-Saika scheme is shown in this note.</p>
-<section id="Primitive-Gaussian-Type-Orbital">
-<h2><span class="section-number">6.1. </span>Primitive Gaussian Type Orbital<a class="headerlink" href="#Primitive-Gaussian-Type-Orbital" title="Permalink to this headline"></a></h2>
-<p>Most quantum chemistry package supports Contracted Gaussian type orbtial(CGTO), it is an atomic orbital forming in linear combinations of primitive Gaussians type orbital(PGTO). Here in this note, only the integral over primitive Gaussian type orbital is to be considered which are defiend by an angular part which is homogeneous polynomial in the compoents x, y, and z of the position vector <span class="math notranslate nohighlight">\(\mathbf{r}\)</span>. That is,</p>
-<p><span class="math">\begin{equation}
-G_{ijk}(r_A,a) = x^i_A y^j_A z^k_A e^{-a r^2_A}
-\end{equation}</span></p>
-<ul class="simple">
-<li><p>a&gt;0 is the orbital exponent.</p></li>
-<li><p><span class="math notranslate nohighlight">\(r_A = r − A\)</span> is the electronic coordinate.</p></li>
-<li><p>i ≥ 0, j ≥ 0, k ≥ 0 is the quantum number.</p></li>
-<li><p>Total angular-momentum quantum number l = i + j + k ≥ 0</p></li>
-</ul>
-<p>The Cartesian Gaussians may be factorized in the three Cartesian directons <span class="math">\begin{equation}
-G_{ijk}(r_A,a) = G_i(r_A,a)G_j(r_A,a)G_k(r_A,a)
-\end{equation}</span> where <span class="math">\begin{equation}
-G_i(r_A,a)= x^i_A e^{-a x^2_A}
-\end{equation}</span></p>
-<p>Gaussians satisfy a simple recurrence relation:</p>
-<p><span class="math">\begin{equation}
-x_A G_i(a, x_A ) = G_{i+1}(a, x_A )
-\end{equation}</span></p>
-<p>The differentiation of a Gaussian yields a linear combination of two Gaussians <span class="math">\begin{equation}
-\frac{\partial G_i(a, x_A )}{\partial A_x}
-= -\frac{\partial G_i(a, x_A)}{\partial x}
-= 2aG_{i+1}(a, x_A) − iG_{i−1}(a, x_A)
-\end{equation}</span></p>
-<p>An important property of Gaussians is the Gaussian product rule. The product of two Gaussians is another Gaussian centered somewhere on the line connecting the original Gaussians; its exponent is the sum of the original exponents:</p>
-<p><span class="math">\begin{equation}
-e^{-a x^2_A} e^{-b x^2_B} = e^{-\mu X_{AB}^2}  e^{-p x^2_P}
-\end{equation}</span></p>
-<p>while the centre-of-charge <span class="math notranslate nohighlight">\(P_x\)</span> and the relative coordinate or Gaussian separation <span class="math notranslate nohighlight">\(X_{AB}\)</span> are given by</p>
-<p><span class="math">\begin{equation}
-\begin{aligned}
-p &= a+b\\
-\mu &= \frac{ab}{a+b}\\
-P_x &= \frac{aA_x+bB_x}{a+b}\\
-X_{AB} &= A_x - B_x
-\end{aligned}
-\end{equation}</span></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="k">class</span> <span class="nc">PrimitiveGaussian</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Primitive Gaussian functions.</span>
-
-<span class="sd">    Attributes</span>
-<span class="sd">    ----------</span>
-<span class="sd">    origin : 3-list</span>
-<span class="sd">        Coordinate of the nuclei.</span>
-
-<span class="sd">    n : int</span>
-<span class="sd">        Principal quantum number.</span>
-
-<span class="sd">    shell : 3-tuple</span>
-<span class="sd">        Angular momentum.</span>
-
-<span class="sd">    coef : float</span>
-<span class="sd">        Coefficent of Primitive Gaussian function.</span>
-
-<span class="sd">    exp : float</span>
-<span class="sd">        Primitive Gaussian exponent.</span>
-
-<span class="sd">    Methods</span>
-<span class="sd">    -------</span>
-<span class="sd">    __init__(self,type,origin,n,shell,coef,exp)</span>
-<span class="sd">        Initialize the instance.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">coefficient</span><span class="p">,</span><span class="n">origin</span><span class="p">,</span><span class="n">shell</span><span class="p">,</span><span class="n">exponent</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize the instance.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        origin : list</span>
-<span class="sd">            Coordinate of the nuclei.</span>
-
-<span class="sd">        n : int</span>
-<span class="sd">            Principal quantum number.</span>
-
-<span class="sd">        shell : list</span>
-<span class="sd">            Angular momentum.</span>
-
-<span class="sd">        coef : float</span>
-<span class="sd">            Primitive Gaussian coefficients.</span>
-
-<span class="sd">        exp : float</span>
-<span class="sd">            Primitive Gaussian exponent.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">coefficient</span> <span class="o">=</span> <span class="n">coefficient</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">origin</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">shell</span> <span class="o">=</span> <span class="n">shell</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">exponent</span>  <span class="o">=</span> <span class="n">exponent</span>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="c1"># Molecular coordinates</span>
-    <span class="n">H2O</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.43233673</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.96104039</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.43233673</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.96104039</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.24026010</span><span class="p">]]</span>
-
-    <span class="c1"># Orbital exponents</span>
-    <span class="n">OrbCoeff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">3.425250914</span><span class="p">,</span> <span class="mf">0.6239137298</span><span class="p">,</span> <span class="mf">0.168855404</span><span class="p">],</span>
-        <span class="p">[</span><span class="mf">3.425250914</span><span class="p">,</span> <span class="mf">0.6239137298</span><span class="p">,</span> <span class="mf">0.168855404</span><span class="p">],</span>
-        <span class="p">[</span><span class="mf">130.7093214</span><span class="p">,</span> <span class="mf">23.80886605</span><span class="p">,</span> <span class="mf">6.443608313</span><span class="p">],</span>
-        <span class="p">[</span><span class="mf">5.033151319</span><span class="p">,</span> <span class="mf">1.169596125</span><span class="p">,</span> <span class="mf">0.38038896</span><span class="p">],</span>
-        <span class="p">[</span><span class="mf">5.033151319</span><span class="p">,</span> <span class="mf">1.169596125</span><span class="p">,</span> <span class="mf">0.38038896</span><span class="p">],</span>
-        <span class="p">[</span><span class="mf">5.033151319</span><span class="p">,</span> <span class="mf">1.169596125</span><span class="p">,</span> <span class="mf">0.38038896</span><span class="p">],</span>
-        <span class="p">[</span><span class="mf">5.033151319</span><span class="p">,</span> <span class="mf">1.169596125</span><span class="p">,</span> <span class="mf">0.38038896</span><span class="p">]])</span>
-
-    <span class="c1"># H1s, H2s, O1s, O2s, O2px , O2py, O2p</span>
-    <span class="n">FCenter</span> <span class="o">=</span> <span class="p">[</span><span class="n">H2O</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">H2O</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">H2O</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">H2O</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">H2O</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">H2O</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">H2O</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
-    <span class="n">CartAng</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
-
-    <span class="n">pga</span> <span class="o">=</span> <span class="n">PrimitiveGaussian</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="n">FCenter</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">CartAng</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">OrbCoeff</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">pgb</span> <span class="o">=</span> <span class="n">PrimitiveGaussian</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="n">FCenter</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="n">CartAng</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="n">OrbCoeff</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="Boys-Function">
-<h2><span class="section-number">6.2. </span>Boys Function<a class="headerlink" href="#Boys-Function" title="Permalink to this headline"></a></h2>
-<p>The boys function of order n is defined by</p>
-<p><span class="math">\begin{equation}
-F_n(x) = \int_0^1 exp(-xt^2)t^{2n}dt\tag{1}
-\label{boys}
-\end{equation}</span></p>
-<p>for <span class="math notranslate nohighlight">\(x\geq 0\)</span>, It is a strictly positive function since the integrand is positive</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.special</span> <span class="k">as</span> <span class="nn">sc</span>
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">exp</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">sqrt</span>
-
-<span class="k">def</span> <span class="nf">boys</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Boys function for the calculation of coulombic integrals.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    n : int</span>
-<span class="sd">        Order of boys function</span>
-
-<span class="sd">    t : float</span>
-<span class="sd">        Varible for boys function.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">sc</span><span class="o">.</span><span class="n">hyp1f1</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mf">1.5</span><span class="p">,</span><span class="o">-</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="mf">1.0</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">boys_recursion</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">f_N</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the answer to the boys function f_{v - 1}(x) using the</span>
-<span class="sd">    answer for the boys function f_{v}(x).</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    v : {int, float}</span>
-<span class="sd">    x : {int, float}</span>
-<span class="sd">    f_v : float</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    result : float</span>
-<span class="sd">        The boys function f_{N - 1}(x).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">result</span> <span class="o">=</span>  <span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">f_N</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">result</span>
-</pre></div>
-</div>
-</div>
-</section>
+  <section id="Obara-Saika-Scheme">
+<h1><span class="section-number">5. </span>Obara Saika Scheme<a class="headerlink" href="#Obara-Saika-Scheme" title="Permalink to this headline"></a></h1>
 <section id="Overlap">
-<h2><span class="section-number">6.3. </span>Overlap<a class="headerlink" href="#Overlap" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.1. </span>Overlap<a class="headerlink" href="#Overlap" title="Permalink to this headline"></a></h2>
 <p>Let us frist consider the simple overlap integral <span class="math">\begin{equation}
 S_{ab} = \langle G_a|G_b \rangle
 \end{equation}</span></p>
@@ -290,7 +103,7 @@ S_{i,j+1} &= X_{PB}S_{ij} + \frac{1}{2p}(iS_{i-1,j}+jS_{i,j-1})\\
 S_{0,0} = \sqrt(\frac{\pi}{p}) exp(-\mu X_{AB}^2)
 \end{equation}</span></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Overlap</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -423,7 +236,7 @@ S_{0,0} = \sqrt(\frac{\pi}{p}) exp(-\mu X_{AB}^2)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The overlap integral between two primitive Gaussian type orbital</span>
@@ -437,12 +250,19 @@ S_{0,0} = \sqrt(\frac{\pi}{p}) exp(-\mu X_{AB}^2)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--8.880194157791243e-05
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Input <span class="ansi-green-fg">In [2]</span>, in <span class="ansi-cyan-fg">&lt;cell line: 3&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span style="color: rgb(95,135,135)"># The overlap integral between two primitive Gaussian type orbital</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> S_integral <span style="color: rgb(98,98,98)">=</span> Overlap()
+<span class="ansi-green-fg">----&gt; 3</span> <span style="color: rgb(0,135,0)">print</span>(S_integral(pga,pgb))
+
+<span class="ansi-red-fg">NameError</span>: name &#39;pga&#39; is not defined
 </pre></div></div>
 </div>
 </section>
 <section id="Kinetic">
-<h2><span class="section-number">6.4. </span>Kinetic<a class="headerlink" href="#Kinetic" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.2. </span>Kinetic<a class="headerlink" href="#Kinetic" title="Permalink to this headline"></a></h2>
 <p>Consider the integral of electrons kinetic energy</p>
 <p><span class="math">\begin{equation}
 \begin{aligned}
@@ -462,7 +282,7 @@ T_{i,j+1} &= X_{PB}T_{ij} + \frac{1}{2p}(iT_{i-1,j}+jT_{i,j-1})+ \frac{a}{p}(2bS
 T_{0,0} = \left[a-2a^2(X_{PA}^2 + \frac{1}{2p})\right] S_{00}
 \end{equation}</span></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">overlap</span> <span class="o">=</span> <span class="n">Overlap</span><span class="p">()</span>
@@ -607,8 +427,8 @@ T_{0,0} = \left[a-2a^2(X_{PA}^2 + \frac{1}{2p})\right] S_{00}
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The kinetic integral between two primitive Gaussian type orbital</span>
@@ -617,17 +437,9 @@ T_{0,0} = \left[a-2a^2(X_{PA}^2 + \frac{1}{2p})\right] S_{00}
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-0.0016734344532709933
-</pre></div></div>
-</div>
 </section>
 <section id="Nuclear-Attraction">
-<h2><span class="section-number">6.5. </span>Nuclear Attraction<a class="headerlink" href="#Nuclear-Attraction" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.3. </span>Nuclear Attraction<a class="headerlink" href="#Nuclear-Attraction" title="Permalink to this headline"></a></h2>
 <p><span class="math">\begin{equation}
 \begin{aligned}
 V_{a,b} &=\langle G_a \vert -\sum^N_{i=1}\sum^M_{\alpha=1} \frac{Z_\alpha e^2}{\textbf{r}_{i\alpha}} \vert G_b \rangle \\
@@ -653,7 +465,7 @@ V_{a,b} &= V_{ijklmn}^{000} = \Theta_{ijklmn}^{0}
 = \frac{2\pi}{p} K_{ab}^{xyz}F_N(pR_{PC}^2)
 \end{equation}</span></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NuclearAttraction</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -897,8 +709,8 @@ V_{a,b} &= V_{ijklmn}^{000} = \Theta_{ijklmn}^{0}
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The nuclear attraction integral between two primitive Gaussian type orbital</span>
@@ -907,17 +719,9 @@ V_{a,b} &= V_{ijklmn}^{000} = \Theta_{ijklmn}^{0}
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
--8.543259485351415e-05
-</pre></div></div>
-</div>
 </section>
 <section id="Electron-Repulsion">
-<h2><span class="section-number">6.6. </span>Electron Repulsion<a class="headerlink" href="#Electron-Repulsion" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.4. </span>Electron Repulsion<a class="headerlink" href="#Electron-Repulsion" title="Permalink to this headline"></a></h2>
 <p><span class="math">\begin{equation}
 V_{abcd} = \langle G_a G_b\vert \sum^N_{i=1}\sum^N_{j>i} \frac{e^2}{\textbf{r}_{ij}}\vert G_c G_d \rangle
 \end{equation}</span></p>
@@ -951,7 +755,7 @@ X_{QC}\Theta_{ijkl}^{N}
 \end{aligned}
 \end{equation}</span></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ElectronRepulsion</span><span class="p">:</span>
@@ -1234,8 +1038,8 @@ X_{QC}\Theta_{ijkl}^{N}
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The overlap integral between two primitive Gaussian type orbital</span>
@@ -1244,14 +1048,6 @@ X_{QC}\Theta_{ijkl}^{N}
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-1.9060888184873294e-08
-</pre></div></div>
-</div>
 </section>
 </section>
 
@@ -1259,8 +1055,7 @@ X_{QC}\Theta_{ijkl}^{N}
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="basis.html" class="btn btn-neutral float-left" title="4. Basis Set" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="mcmurchie_davidson.html" class="btn btn-neutral float-right" title="7. Mcmurchie Davidson Scheme" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="mcmurchie_davidson.html" class="btn btn-neutral float-left" title="4. Mcmurchie Davidson Scheme" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

@@ -14,10 +14,12 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Introduction" href="user/introduction.html" /> 
+    <link rel="next" title="1. Installation" href="user/installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,13 +43,11 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">USER DOCUMENTATION:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="user/introduction.html">1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/installation.html">2. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/molecule.html">3. Molecule</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/basis.html">4. Basis Set</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/basis.html#Primitive-Gaussian-Type-Orbital">5. Primitive Gaussian Type Orbital</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/obara_saika.html">6. Hamiltonian Integral</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/mcmurchie_davidson.html">7. Mcmurchie Davidson Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/molecule.html">2. Molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/basis.html">3. Basis Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/mcmurchie_davidson.html">4. Mcmurchie Davidson Scheme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/obara_saika.html">5. Obara Saika Scheme</a></li>
 </ul>
 
         </div>
@@ -77,39 +77,41 @@
   <section id="gaint-version">
 <h1>GaInt 0.1.0<a class="headerlink" href="#gaint-version" title="Permalink to this headline"></a></h1>
 <p><strong>GaInt</strong> is the abbreviation of Gaussian Integral, it is a python package for the non-normalizecd molecular integrals over Primitive Cartesian Gaussian orbitals. This is a particularly naive implementation in python: little attempt is made to conserve memory or CPU time. Nevertheless, it is useful for small test calculations, in particular for investigating ideas quantum chemistry.</p>
+<p>To begin a quantum chemistry calculation, first build the Hamiltonian of a system. In terms of second quantization operators, a time-independent non-relativistic Hamiltonian gives:</p>
+<p><span class="math notranslate nohighlight">\(H = - \sum_{ij} t_{ij}\hat{c}^{\dagger}_{i}\hat{c}_{j} + \frac{1}{2} \sum_{ijkl} V_{ijkl}\hat{c}^{\dagger}_{i}\hat{c}^{\dagger}_{k}\hat{c}_{l}\hat{c}_{j}\)</span></p>
+<p>There are many integration schemes including McMurchie–Davidson, Obara–Saika and Rys schemes. Here Obara-Saika and McMurchie–Davidson scheme is shown in this note.</p>
 <section id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline"></a></h2>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">USER DOCUMENTATION:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="user/introduction.html">1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/installation.html">2. Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user/installation.html#Prerequisites">2.1. Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/installation.html#Compiling-from-source-code">2.2. Compiling from source code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/installation.html">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/installation.html#Prerequisites">1.1. Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/installation.html#Compiling-from-source-code">1.2. Compiling from source code</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="user/molecule.html">3. Molecule</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user/molecule.html#Build">3.1. Build</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/molecule.html#Geometry-Methods">3.2. Geometry Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/molecule.html#Point-Group">3.3. Point Group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/molecule.html">2. Molecule</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/molecule.html#Build">2.1. Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/molecule.html#Geometry-Methods">2.2. Geometry Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/molecule.html#Point-Group">2.3. Point Group</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="user/basis.html">4. Basis Set</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/basis.html#Primitive-Gaussian-Type-Orbital">5. Primitive Gaussian Type Orbital</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user/obara_saika.html">6. Hamiltonian Integral</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Primitive-Gaussian-Type-Orbital">6.1. Primitive Gaussian Type Orbital</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Boys-Function">6.2. Boys Function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Overlap">6.3. Overlap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Kinetic">6.4. Kinetic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Nuclear-Attraction">6.5. Nuclear Attraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Electron-Repulsion">6.6. Electron Repulsion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/basis.html">3. Basis Set</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/basis.html#Primitive-Gaussian-Type-Orbital">3.1. Primitive Gaussian Type Orbital</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="user/mcmurchie_davidson.html">7. Mcmurchie Davidson Scheme</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Overlap">7.1. Overlap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Kinetic">7.2. Kinetic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Nuclear-Attraction">7.3. Nuclear Attraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Electron-Repulsion">7.4. Electron Repulsion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/mcmurchie_davidson.html">4. Mcmurchie Davidson Scheme</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Overlap">4.1. Overlap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Kinetic">4.2. Kinetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Nuclear-Attraction">4.3. Nuclear Attraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/mcmurchie_davidson.html#Electron-Repulsion">4.4. Electron Repulsion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user/obara_saika.html">5. Obara Saika Scheme</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Overlap">5.1. Overlap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Kinetic">5.2. Kinetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Nuclear-Attraction">5.3. Nuclear Attraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/obara_saika.html#Electron-Repulsion">5.4. Electron Repulsion</a></li>
 </ul>
 </li>
 </ul>
@@ -128,7 +130,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="user/introduction.html" class="btn btn-neutral float-right" title="1. Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="user/installation.html" class="btn btn-neutral float-right" title="1. Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
