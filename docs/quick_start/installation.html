@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. Installation &mdash; moha 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/moha.ico"/>
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2. Examples" href="example.html" />
+    <link rel="prev" title="MoHa 0.1.0" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html">
+            <img src="../_static/moha.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">QUICK START:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Compiling-from-source-code">1.1. Compiling from source code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Prerequisites">1.2. Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Compile">1.2.1. Compile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Unit-test">1.2.2. Unit test</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Installation-with-pip">1.3. Installation with pip</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">2. Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">USER DOCUMENTATION:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user/introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/molecule.html">2. Molecule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/basis.html">3. Basis Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/basis.html#Primitive-Gaussian-Type-Orbital">4. Primitive Gaussian Type Orbital</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/obara_saika.html">5. Hamiltonian Integral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/mcmurchie_davidson.html">6. Hamiltonian Integral</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">moha</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">1. </span>Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/quick_start/installation.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Installation">
+<h1><span class="section-number">1. </span>Installation<a class="headerlink" href="#Installation" title="Permalink to this headline"></a></h1>
+<section id="Compiling-from-source-code">
+<h2><span class="section-number">1.1. </span>Compiling from source code<a class="headerlink" href="#Compiling-from-source-code" title="Permalink to this headline"></a></h2>
+<p>This section gives the recommended way to install MoHa. One can find the source code on Github <a class="reference external" href="https://github.com/ZhaoYilin/moha">https://github.com/ZhaoYilin/moha</a>.</p>
+</section>
+<section id="Prerequisites">
+<h2><span class="section-number">1.2. </span>Prerequisites<a class="headerlink" href="#Prerequisites" title="Permalink to this headline"></a></h2>
+<p>To manually install the package, make sure to have the following dependencies:</p>
+<ul class="simple">
+<li><p>Python &gt;=3.5</p></li>
+<li><p>numpy &gt;=1.13.1</p></li>
+<li><p>scipy &gt;=0.19.1</p></li>
+<li><p>pytest &gt;=6.2.5</p></li>
+</ul>
+<p>To install the prerequisite modules, use the conda or pip command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ conda install numpy scipy pytest
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ pip install numpy scipy pytest
+</pre></div>
+</div>
+<section id="Compile">
+<h3><span class="section-number">1.2.1. </span>Compile<a class="headerlink" href="#Compile" title="Permalink to this headline"></a></h3>
+<p>To compile MoHa from the source code, download the package from Github:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ gh repo clone ZhaoYilin/moh
+</pre></div>
+</div>
+<p>Next, move to the <code class="docutils literal notranslate"><span class="pre">moha</span></code> folder and run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ python3 -m pip install -e .
+</pre></div>
+</div>
+</section>
+<section id="Unit-test">
+<h3><span class="section-number">1.2.2. </span>Unit test<a class="headerlink" href="#Unit-test" title="Permalink to this headline"></a></h3>
+<p>To ensure that the installation was successful, run a unit test with the pytest module. Inside the <code class="docutils literal notranslate"><span class="pre">/moha</span></code> folder and run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ pytest
+</pre></div>
+</div>
+</section>
+</section>
+<section id="Installation-with-pip">
+<h2><span class="section-number">1.3. </span>Installation with pip<a class="headerlink" href="#Installation-with-pip" title="Permalink to this headline"></a></h2>
+<p>The pip package provides a precompiled MoHa code (python wheel) which works on almost all Linux systems and most Mac OS X systems. You can install moha with:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ pip install moha
+</pre></div>
+</div>
+<p>If you already have installed MoHa via pip, you can upgrade it to the new version with:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ pip install --upgrade moha
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="MoHa 0.1.0" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="example.html" class="btn btn-neutral float-right" title="2. Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Yilin Zhao.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
