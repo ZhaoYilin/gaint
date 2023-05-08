@@ -1,5 +1,5 @@
 .. gaint documentation master file, created by
-   sphinx-quickstart on Fri Apr 20 03:14:34 2018.
+   sphinx-quickstart on Fri Apr 20 03:14:34 2023.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -19,8 +19,9 @@ Contents
    user/installation
    user/molecule
    user/basis
-   user/obara_saika
    user/mcmurchie_davidson
+   user/obara_saika
+
 
 Indices and tables
 ==================
