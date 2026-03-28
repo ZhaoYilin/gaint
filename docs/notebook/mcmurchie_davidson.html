@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mcmurchie Davidson Scheme &mdash; GaInt 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Obara Saika Scheme" href="obara_saika.html" />
+    <link rel="prev" title="Basis Sets and Gaussian Functions" href="gauss.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorial Notebooks</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="gauss.html">Basis Sets and Gaussian Functions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Mcmurchie Davidson Scheme</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overlap">Overlap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kinetic">Kinetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nuclear-attraction">Nuclear Attraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#electron-repulsion">Electron Repulsion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="obara_saika.html">Obara Saika Scheme</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">gaint</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GaInt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Mcmurchie Davidson Scheme</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebook/mcmurchie_davidson.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="mcmurchie-davidson-scheme">
+<h1>Mcmurchie Davidson Scheme<a class="headerlink" href="#mcmurchie-davidson-scheme" title="Link to this heading"></a></h1>
+<section id="overlap">
+<h2>Overlap<a class="headerlink" href="#overlap" title="Link to this heading"></a></h2>
+<p>Let us frist consider the simple overlap integral</p>
+<div class="math notranslate nohighlight">
+\[
+S_{ab} = \langle G_a|G_b \rangle
+\]</div>
+<p>it can be factorized in the three Cartesian directons</p>
+<div class="math notranslate nohighlight">
+\[
+S_{ab} = S_{ij}S_{kl}S_{mn}
+\]</div>
+<p>The Obara-Saika recurrence relations for the Cartesian overlap integral over one direction is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+S_{i+1,j} &amp;= X_{PA}S_{ij} + \frac{1}{2p}(iS_{i-1,j}+jS_{i,j-1})\\
+S_{i,j+1} &amp;= X_{PB}S_{ij} + \frac{1}{2p}(iS_{i-1,j}+jS_{i,j-1})\\
+\end{aligned}
+\end{split}\]</div>
+<p>With the boundary condtion</p>
+<div class="math notranslate nohighlight">
+\[
+S_{0,0} = \sqrt(\frac{\pi}{p}) exp(-\mu X_{AB}^2)
+\]</div>
+</section>
+<section id="kinetic">
+<h2>Kinetic<a class="headerlink" href="#kinetic" title="Link to this heading"></a></h2>
+<p>Consider the integral of electrons kinetic energy</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+T_{a,b} &amp;= \langle G_a  \vert -\sum^N_{i=1}\frac{\hbar^2}{2m_i}\boldsymbol{\nabla}_i^2 \vert G_b \rangle\\
+T_{a,b} &amp;= T_{ij}S_{kl}S_{mn} + S_{ij}T_{kl}S_{mn} + S_{ij}S_{kl}T_{mn}
+\end{aligned}
+\end{split}\]</div>
+<p>The Obara-Saika recurrence relations for the Cartesian kinetic integrals over one direction is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+T_{i+1,j} &amp;= X_{PA}T_{ij} + \frac{1}{2p}(iT_{i-1,j}+jT_{i,j-1}) + \frac{b}{p}(2aS_{i+1,j}-iS_{i-1,j})\\
+T_{i,j+1} &amp;= X_{PB}T_{ij} + \frac{1}{2p}(iT_{i-1,j}+jT_{i,j-1})+ \frac{a}{p}(2bS_{i,j+1}-jS_{i,j-1})\\
+\end{aligned}
+\end{split}\]</div>
+<p>With the boundary condtion</p>
+<div class="math notranslate nohighlight">
+\[
+T_{0,0} = \left[a-2a^2(X_{PA}^2 + \frac{1}{2p})\right] S_{00}
+\]</div>
+</section>
+<section id="nuclear-attraction">
+<h2>Nuclear Attraction<a class="headerlink" href="#nuclear-attraction" title="Link to this heading"></a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+\begin{aligned}
+V_{a,b} &amp;=\langle G_a \vert -\sum^N_{i=1}\sum^M_{\alpha=1} \frac{Z_\alpha e^2}{\textbf{r}_{i\alpha}} \vert G_b \rangle \\
+V_{a,b} &amp;= V_{ijklmn}^{000} = \Theta_{ijklmn}^{0}
+\end{aligned}
+\end{split}\]</div>
+<p>The Obara-Saika recurrence relations for the Cartesian nuclear attraction integrals:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\Theta_{i+1,j,k,l,m,n}^{N} &amp;= X_{PA}\Theta_{ijkln}^{N}
++\frac{1}{2p}(i\Theta_{i-1,j,k,l,m,n}^{N} + j\Theta_{i,j-1,k,l,m,n}^{N})\\
+&amp;-X_{PC}\Theta_{ijklmn}^{N+1}
+-\frac{1}{2p}(i\Theta_{i-1,j,k,l,m,n}^{N+1} + j\Theta_{i,j-1,k,l,m,n}^{N+1})\\
+\Theta_{i,j+1,k,l,m,n}^{N} &amp;= X_{PB}\Theta_{ijkln}^{N}
++\frac{1}{2p}(i\Theta_{i-1,j,k,l,m,n}^{N} + j\Theta_{i,j-1,k,l,m,n}^{N})\\
+&amp;-X_{PC}\Theta_{ijklmn}^{N+1}
+-\frac{1}{2p}(i\Theta_{i-1,j,k,l,m,n}^{N+1} + j\Theta_{i,j-1,k,l,m,n}^{N+1})\\
+\end{aligned}
+\end{split}\]</div>
+<p>With the boundary condtion</p>
+<div class="math notranslate nohighlight">
+\[
+\Theta_{000000}^{N} = \frac{2\pi}{p}(-2p)^{-N}K_{ab}^{xyz}R_{000}^{N} 
+= \frac{2\pi}{p} K_{ab}^{xyz}F_N(pR_{PC}^2)
+\]</div>
+</section>
+<section id="electron-repulsion">
+<h2>Electron Repulsion<a class="headerlink" href="#electron-repulsion" title="Link to this heading"></a></h2>
+<div class="math notranslate nohighlight">
+\[        
+V_{abcd} = \langle G_a G_b\vert \sum^N_{i=1}\sum^N_{j&gt;i} \frac{e^2}{\textbf{r}_{ij}}\vert G_c G_d \rangle 
+\]</div>
+<p>The source and target integrals:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\Theta_{0000;0000;0000}^{N} &amp;= \frac{2\pi^{2.5}}{pq\sqrt{p+q}}
+K_{ab}^{xyz}K_{cd}^{xyz}F_N(\alpha R_{PQ}^2)\\ 
+\Theta_{i_xj_xk_xl_x;i_yj_yk_yl_y;i_zj_zk_zl_z}^{0} &amp;= g_{i_xj_xk_xl_x;i_yj_yk_yl_y;i_zj_zk_zl_z}
+\end{aligned}
+\end{split}\]</div>
+<p>The Obara-Saika two electron recurrence relation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\Theta_{i+1,j,k,l}^{N} &amp;= 
+X_{PA}\Theta_{ijkl}^{N}
+-\frac{\alpha}{p}X_{PQ}\Theta_{i,j,k,l}^{N+1} 
++\frac{i}{2p}\left(\Theta_{i-1,j,k,l}^{N}-\frac{\alpha}{p}\Theta_{i-1,j,k,l}^{N+1}\right)\\
+&amp;+\frac{j}{2p}\left(\Theta_{i,j-1,k,l}^{N}-\frac{\alpha}{p}\Theta_{i,j-1,k,l}^{N+1}\right)
+-\frac{k}{2(p+q)}\Theta_{i,j,k-1,l}^{N+1} 
+-\frac{l}{2(p+q)}\Theta_{i,j,k,l-1}^{N+1} 
+\end{aligned}
+\end{split}\]</div>
+<p>Using the horizontal recurrence relation, a similar relation may be written down for increments in j, replaceing <span class="math notranslate nohighlight">\(X_{PA}\)</span> with <span class="math notranslate nohighlight">\(X_{PB}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\Theta_{i,j,k+1,l}^{N} &amp;= 
+X_{QC}\Theta_{ijkl}^{N}
+-\frac{\alpha}{q}X_{PQ}\Theta_{i,j,k,l}^{N+1} 
++\frac{k}{2q}\left(\Theta_{i,j,k-1,l}^{N}-\frac{\alpha}{q}\Theta_{i,j,k-1,l}^{N+1}\right)\\
+&amp;+\frac{l}{2q}\left(\Theta_{i,j,k,l-1}^{N}-\frac{\alpha}{q}\Theta_{i,j,k,l-1}^{N+1}\right)
+-\frac{i}{2(p+q)}\Theta_{i-1,j,k,l}^{N+1} 
+-\frac{j}{2(p+q)}\Theta_{i,j-1,k,l}^{N+1} 
+\end{aligned}
+\end{split}\]</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="gauss.html" class="btn btn-neutral float-left" title="Basis Sets and Gaussian Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="obara_saika.html" class="btn btn-neutral float-right" title="Obara Saika Scheme" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yilin Zhao.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,36 +1,71 @@
-.. gaint documentation master file, created by
-   sphinx-quickstart on Fri Apr 20 03:14:34 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+===================
+GaInt Documentation
+===================
 
-GaInt |version|
-###############
-**GaInt** is the abbreviation of Gaussian Integral, it is a python package for the non-normalizecd molecular integrals over Primitive Cartesian Gaussian orbitals. This is a particularly naive implementation in python: little attempt is made to conserve memory or CPU time. Nevertheless, it is useful for small test calculations, in particular for investigating ideas quantum chemistry.
+**GaInt** (Gaussian Integration) is a Python package for computing molecular integrals over Primitive Cartesian Gaussian orbitals. It provides implementations of various integration schemes including Obara-Saika and McMurchie-Davidson methods.
 
-To begin a quantum chemistry calculation, first build the Hamiltonian of a system. In terms of second quantization operators, a time-independent non-relativistic Hamiltonian gives:
+.. image:: https://img.shields.io/badge/License-MIT-blue.svg
 
-:math:`H = - \sum_{ij} t_{ij}\hat{c}^{\dagger}_{i}\hat{c}_{j} + \frac{1}{2} \sum_{ijkl} V_{ijkl}\hat{c}^{\dagger}_{i}\hat{c}^{\dagger}_{k}\hat{c}_{l}\hat{c}_{j}`
+Key Features
+=============
 
-There are many integration schemes including McMurchie–Davidson, Obara–Saika and Rys schemes. Here Obara-Saika and McMurchie–Davidson scheme is shown in this note.
+- **Multiple Integration Schemes**: Support for Obara-Saika and McMurchie-Davidson recursive algorithms
+- **Comprehensive Integral Types**: Overlap, kinetic, nuclear attraction, and electron repulsion integrals
+- **Arbitrary Angular Momentum**: Support for s, p, d, and higher angular momentum orbitals
+- **Pure Python Implementation**: Easy to install and use with standard scientific Python tools
+- **Well-Documented API**: Clear documentation and examples for all functionality
+
+Quick Start
+===========
+
+.. code-block:: python
+
+    import numpy as np
+    from gaint.gauss import PrimitiveGaussian
+    from gaint.obara_saika.overlap import Overlap
+
+    # Create two s-type Gaussian orbitals
+    pg1 = PrimitiveGaussian(1.0, [0.0, 0.0, 0.0], [0, 0, 0], 1.0)
+    pg2 = PrimitiveGaussian(1.0, [0.0, 0.0, 0.0], [0, 0, 0], 1.0)
+
+    # Calculate overlap integral
+    S = Overlap()
+    overlap_value = S(pg1, pg2)
+    print(f"Overlap integral: {overlap_value}")
+
+About
+======
+
+GaInt was developed to provide researchers with an efficient, flexible tool for computing molecular integrals in quantum chemistry calculations. It emphasizes code clarity and educational value while maintaining computational accuracy for small to medium-sized systems.
 
 Contents
-========
+=========
 
 .. toctree::
    :maxdepth: 2
-   :numbered:
-   :caption: USER DOCUMENTATION:
+   :caption: Getting Started
 
-   user/installation
-   user/molecule
-   user/basis
-   user/mcmurchie_davidson
-   user/obara_saika
+   installation
+   quickstart
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Tutorial Notebooks
+
+   notebook/gauss
+   notebook/mcmurchie_davidson
+   notebook/obara_saika
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API
+   :glob:
+
+   api/modules
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
 * :ref:`modindex`
-
+* :ref:`search`

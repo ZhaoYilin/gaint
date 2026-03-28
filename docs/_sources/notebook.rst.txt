@@ -1,0 +1,12 @@
+Notebooks
+=========
+
+This section contains interactive Jupyter notebooks that demonstrate various features of GaInt.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Notebooks
+
+   notebook/gauss
+   notebook/mcmurchie_davidson
+   notebook/obara_saika
