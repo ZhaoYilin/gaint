@@ -64,7 +64,8 @@ $$
 - i ≥ 0, j ≥ 0, k ≥ 0 is the quantum number.
 - Total angular-momentum quantum number l = i + j + k ≥ 0
 
-```python 
+```python
+import numpy as np 
 from gaint.gauss import PrimitiveGaussian
 # Coordinate of H2O molecule
 H2O = [[0., 1.43233673, -0.96104039],
