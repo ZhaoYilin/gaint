@@ -16,7 +16,7 @@ GaInt is abbreviation of *Ga*ussian *Int*egral, it is a python package for the n
 
       git clone https://github.com/ZhaoYilin/gaint.git
       cd gaint
-      python setup.py install --user
+      python3 -m pip install -e .
 
 * Using pip to install python package on GitHub
 
@@ -102,22 +102,22 @@ pgb = PrimitiveGaussian(PrimCoeff[6,0],FCenter[6],CartAng[6],OrbCoeff[6,0])
 ### Obara-Saika Scheme
 ```python
 # The non-normalizecd integral between two primitive Gaussian type orbital
-from gaint.obara_saikai.overlap import Overlap
+from gaint.obara_saika.overlap import Overlap
 S = Overlap()
 s17 = S(pga,pgb)
-print(np.isclose(s_17,-0.0000888019))
+print(np.isclose(s17,-0.0000888019))
 
-from gaint.obara_saikai.kinetic import Kinetic
+from gaint.obara_saika.kinetic import Kinetic
 T = Kinetic()
 t17 = T(pga,pgb)
 print(np.isclose(t17,0.00167343))
 
-from gaint.obara_saikai.nuclear_attraction import NuclearAttraction
+from gaint.obara_saika.nuclear_attraction import NuclearAttraction
 V = NuclearAttraction()
 v17 = V(pga,pgb,FCenter[0])
 print(np.isclose(v17,-0.0000854386))
 
-from gaint.obara_saikai.electron_repulsion import ElectronRepulsion
+from gaint.obara_saika.electron_repulsion import ElectronRepulsion
 Eri = ElectronRepulsion()
 eri1717 = Eri(pga,pgb,pga,pgb)
 print(np.isclose(eri1717,1.9060888184873294e-08))
@@ -129,7 +129,7 @@ print(np.isclose(eri1717,1.9060888184873294e-08))
 from gaint.mcmurchie_davidson.overlap import Overlap
 S = Overlap()
 s17 = S(pga,pgb)
-print(np.isclose(s_17,-0.0000888019))
+print(np.isclose(s17,-0.0000888019))
 
 from gaint.mcmurchie_davidson.kinetic import Kinetic
 T = Kinetic()
