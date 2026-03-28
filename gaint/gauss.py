@@ -83,8 +83,15 @@ class PrimitiveGaussian(object):
         """
         from scipy.special import factorial2 as fact2
         i,j,k = self.shell
+        
+        # Handle factorial2 for negative arguments
+        def safe_fact2(n):
+            if n < 0:
+                return 1.0  # fact2(-1) = 1 by convention for Gaussian normalization
+            return fact2(n)
+        
         norm = np.sqrt(np.power(2,2*(i+j+k)+1.5)*
                         np.power(self.exponent,i+j+k+1.5)/
-                        fact2(2*i-1)/fact2(2*j-1)/
-                        fact2(2*k-1)/np.power(np.pi,1.5))
+                        safe_fact2(2*i-1)/safe_fact2(2*j-1)/
+                        safe_fact2(2*k-1)/np.power(np.pi,1.5))
         return norm

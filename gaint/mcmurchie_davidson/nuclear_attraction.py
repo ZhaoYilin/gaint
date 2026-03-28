@@ -1,4 +1,5 @@
 import numpy as np
+from gaint.gauss import PrimitiveGaussian
 
 class NuclearAttraction(object):
     """The McMurchie Davidson scheme for overlap integral over primitive Gaussian orbitals.

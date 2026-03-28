@@ -1,4 +1,5 @@
 import numpy as np
+from gaint.gauss import PrimitiveGaussian
 
 class ElectronRepulsion:
     """The Obara-Saika scheme for three-dimensional nuclear attraction integral over

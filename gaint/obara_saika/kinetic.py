@@ -1,5 +1,4 @@
 import numpy as np
-
 from gaint.gauss import PrimitiveGaussian
 
 class Kinetic(object):
